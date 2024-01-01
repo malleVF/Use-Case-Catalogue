@@ -1,0 +1,54 @@
+---
+title: "Suspicious Debugger Registration Cmdline"
+status: "test"
+created: "2019/09/06"
+last_modified: "2022/08/06"
+tags: [persistence, privilege_escalation, t1546_008, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Suspicious Debugger Registration Cmdline
+
+### Description
+
+Detects the registration of a debugger for a program that is available in the logon screen (sticky key backdoor).
+
+```yml
+title: Suspicious Debugger Registration Cmdline
+id: ae215552-081e-44c7-805f-be16f975c8a2
+status: test
+description: Detects the registration of a debugger for a program that is available in the logon screen (sticky key backdoor).
+references:
+    - https://blogs.technet.microsoft.com/jonathantrull/2016/10/03/detecting-sticky-key-backdoors/
+    - https://bazaar.abuse.ch/sample/6f3aa9362d72e806490a8abce245331030d1ab5ac77e400dd475748236a6cc81/
+author: Florian Roth (Nextron Systems), oscd.community, Jonhnathan Ribeiro
+date: 2019/09/06
+modified: 2022/08/06
+tags:
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1546.008
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection1:
+        CommandLine|contains: '\CurrentVersion\Image File Execution Options\'
+    selection2:
+        CommandLine|contains:
+            - 'sethc.exe'
+            - 'utilman.exe'
+            - 'osk.exe'
+            - 'magnify.exe'
+            - 'narrator.exe'
+            - 'displayswitch.exe'
+            - 'atbroker.exe'
+            - 'HelpPane.exe'
+    condition: all of selection*
+falsepositives:
+    - Unknown
+level: high
+
+```

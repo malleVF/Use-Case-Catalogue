@@ -1,0 +1,43 @@
+---
+title: "PowerShell Hotfix Enumeration"
+status: "test"
+created: "2022/06/21"
+last_modified: ""
+tags: [discovery, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## PowerShell Hotfix Enumeration
+
+### Description
+
+Detects call to "Win32_QuickFixEngineering" in order to enumerate installed hotfixes often used in "enum" scripts by attackers
+
+```yml
+title: PowerShell Hotfix Enumeration
+id: f5d1def8-1de0-4a0e-9794-1f6f27dd605c
+status: test
+description: Detects call to "Win32_QuickFixEngineering" in order to enumerate installed hotfixes often used in "enum" scripts by attackers
+references:
+    - https://github.com/411Hall/JAWS/blob/233f142fcb1488172aa74228a666f6b3c5c48f1d/jaws-enum.ps1
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/06/21
+tags:
+    - attack.discovery
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection:
+        ScriptBlockText|contains|all:
+            - 'Win32_QuickFixEngineering'
+            - 'HotFixID'
+    condition: selection
+falsepositives:
+    - Legitimate administration scripts
+level: medium
+
+```

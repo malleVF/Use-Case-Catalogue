@@ -1,0 +1,44 @@
+---
+title: "UAC Bypass Using MSConfig Token Modification - File"
+status: "test"
+created: "2021/08/30"
+last_modified: "2022/10/09"
+tags: [defense_evasion, privilege_escalation, t1548_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## UAC Bypass Using MSConfig Token Modification - File
+
+### Description
+
+Detects the pattern of UAC Bypass using a msconfig GUI hack (UACMe 55)
+
+```yml
+title: UAC Bypass Using MSConfig Token Modification - File
+id: 41bb431f-56d8-4691-bb56-ed34e390906f
+status: test
+description: Detects the pattern of UAC Bypass using a msconfig GUI hack (UACMe 55)
+references:
+    - https://github.com/hfiref0x/UACME
+author: Christian Burkard (Nextron Systems)
+date: 2021/08/30
+modified: 2022/10/09
+tags:
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1548.002
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        TargetFilename|startswith: 'C:\Users\'
+        TargetFilename|endswith: '\AppData\Local\Temp\pkgmgr.exe'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+
+```

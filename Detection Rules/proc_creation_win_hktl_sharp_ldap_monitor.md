@@ -1,0 +1,47 @@
+---
+title: "HackTool - SharpLDAPmonitor Execution"
+status: "experimental"
+created: "2022/12/30"
+last_modified: "2023/02/14"
+tags: [discovery, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## HackTool - SharpLDAPmonitor Execution
+
+### Description
+
+Detects execution of the SharpLDAPmonitor. Which can monitor the creation, deletion and changes to LDAP objects.
+
+```yml
+title: HackTool - SharpLDAPmonitor Execution
+id: 9f8fc146-1d1a-4dbf-b8fd-dfae15e08541
+status: experimental
+description: Detects execution of the SharpLDAPmonitor. Which can monitor the creation, deletion and changes to LDAP objects.
+references:
+    - https://github.com/p0dalirius/LDAPmonitor
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/12/30
+modified: 2023/02/14
+tags:
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_img:
+        - Image|endswith: '\SharpLDAPmonitor.exe'
+        - OriginalFileName: 'SharpLDAPmonitor.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - '/user:'
+            - '/pass:'
+            - '/dcip:'
+    condition: 1 of selection_*
+falsepositives:
+    - Unknown
+level: medium
+
+```

@@ -1,0 +1,50 @@
+---
+title: "Potential Python Reverse Shell"
+status: "experimental"
+created: "2023/04/24"
+last_modified: ""
+tags: [execution, detection_rule]
+logsrc_product: "linux"
+logsrc_service: ""
+level: "high"
+---
+
+## Potential Python Reverse Shell
+
+### Description
+
+Detects executing python with keywords related to network activity that could indicate a potential reverse shell
+
+```yml
+title: Potential Python Reverse Shell
+id: 32e62bc7-3de0-4bb1-90af-532978fe42c0
+related:
+    - id: c4042d54-110d-45dd-a0e1-05c47822c937
+      type: similar
+status: experimental
+description: Detects executing python with keywords related to network activity that could indicate a potential reverse shell
+references:
+    - https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+    - https://www.revshells.com/
+author: '@d4ns4n_, Nasreddine Bencherchali (Nextron Systems)'
+date: 2023/04/24
+tags:
+    - attack.execution
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection:
+        Image|contains: 'python'
+        CommandLine|contains|all:
+            - ' -c '
+            - 'import'
+            - 'pty'
+            - 'spawn('
+            - '.connect'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+
+```

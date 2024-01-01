@@ -1,0 +1,43 @@
+---
+title: "Number Of Resource Creation Or Deployment Activities"
+status: "test"
+created: "2020/05/07"
+last_modified: "2023/10/11"
+tags: [persistence, t1098, detection_rule]
+logsrc_product: "azure"
+logsrc_service: "activitylogs"
+level: "medium"
+---
+
+## Number Of Resource Creation Or Deployment Activities
+
+### Description
+
+Number of VM creations or deployment activities occur in Azure via the azureactivity log.
+
+```yml
+title: Number Of Resource Creation Or Deployment Activities
+id: d2d901db-7a75-45a1-bc39-0cbf00812192
+status: test
+description: Number of VM creations or deployment activities occur in Azure via the azureactivity log.
+references:
+    - https://github.com/Azure/Azure-Sentinel/blob/e534407884b1ec5371efc9f76ead282176c9e8bb/Detections/AzureActivity/Creating_Anomalous_Number_Of_Resources_detection.yaml
+author: sawwinnnaung
+date: 2020/05/07
+modified: 2023/10/11
+tags:
+    - attack.persistence
+    - attack.t1098
+logsource:
+    product: azure
+    service: activitylogs
+detection:
+    keywords:
+        - Microsoft.Compute/virtualMachines/write
+        - Microsoft.Resources/deployments/write
+    condition: keywords
+falsepositives:
+    - Valid change
+level: medium
+
+```

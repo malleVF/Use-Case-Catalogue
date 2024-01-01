@@ -1,0 +1,43 @@
+---
+title: "Custom Class Execution via Xwizard"
+status: "test"
+created: "2020/10/07"
+last_modified: "2021/11/27"
+tags: [defense_evasion, t1218, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Custom Class Execution via Xwizard
+
+### Description
+
+Detects the execution of Xwizard tool with specific arguments which utilized to run custom class properties.
+
+```yml
+title: Custom Class Execution via Xwizard
+id: 53d4bb30-3f36-4e8a-b078-69d36c4a79ff
+status: test
+description: Detects the execution of Xwizard tool with specific arguments which utilized to run custom class properties.
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Xwizard/
+author: 'Ensar Şamil, @sblmsrsn, @oscd_initiative'
+date: 2020/10/07
+modified: 2021/11/27
+tags:
+    - attack.defense_evasion
+    - attack.t1218
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\xwizard.exe'
+        CommandLine|re: '\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

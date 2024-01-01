@@ -1,0 +1,50 @@
+---
+title: "Active Directory Parsing DLL Loaded Via Office Application"
+status: "test"
+created: "2020/02/19"
+last_modified: "2023/03/28"
+tags: [execution, t1204_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Active Directory Parsing DLL Loaded Via Office Application
+
+### Description
+
+Detects DSParse DLL being loaded by an Office Product
+
+```yml
+title: Active Directory Parsing DLL Loaded Via Office Application
+id: a2a3b925-7bb0-433b-b508-db9003263cc4
+status: test
+description: Detects DSParse DLL being loaded by an Office Product
+references:
+    - https://medium.com/threatpunter/detecting-adversary-tradecraft-with-image-load-event-logging-and-eql-8de93338c16
+author: Antonlovesdnb
+date: 2020/02/19
+modified: 2023/03/28
+tags:
+    - attack.execution
+    - attack.t1204.002
+logsource:
+    category: image_load
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\excel.exe'
+            - '\mspub.exe'
+            - '\onenote.exe'
+            - '\onenoteim.exe' # Just in case
+            - '\outlook.exe'
+            - '\powerpnt.exe'
+            - '\winword.exe'
+        ImageLoaded|contains: '\dsparse.dll'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

@@ -1,0 +1,45 @@
+---
+title: "Launch-VsDevShell.PS1 Proxy Execution"
+status: "test"
+created: "2022/08/19"
+last_modified: ""
+tags: [defense_evasion, t1216_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Launch-VsDevShell.PS1 Proxy Execution
+
+### Description
+
+Detects the use of the 'Launch-VsDevShell.ps1' Microsoft signed script to execute commands.
+
+```yml
+title: Launch-VsDevShell.PS1 Proxy Execution
+id: 45d3a03d-f441-458c-8883-df101a3bb146
+status: test
+description: Detects the use of the 'Launch-VsDevShell.ps1' Microsoft signed script to execute commands.
+references:
+    - https://twitter.com/nas_bench/status/1535981653239255040
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/08/19
+tags:
+    - attack.defense_evasion
+    - attack.t1216.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_script:
+        CommandLine|contains: 'Launch-VsDevShell.ps1'
+    selection_flags:
+        CommandLine|contains:
+            - 'VsWherePath '
+            - 'VsInstallationPath '
+    condition: all of selection_*
+falsepositives:
+    - Legitimate usage of the script by a developer
+level: medium
+
+```

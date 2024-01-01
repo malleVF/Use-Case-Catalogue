@@ -1,0 +1,44 @@
+---
+title: "Triple Cross eBPF Rootkit Default Persistence"
+status: "test"
+created: "2022/07/05"
+last_modified: "2022/12/31"
+tags: [persistence, defense_evasion, t1053_003, detection_rule]
+logsrc_product: "linux"
+logsrc_service: ""
+level: "high"
+---
+
+## Triple Cross eBPF Rootkit Default Persistence
+
+### Description
+
+Detects the creation of "ebpfbackdoor" files in both "cron.d" and "sudoers.d" directories. Which both are related to the TripleCross persistence method
+
+```yml
+title: Triple Cross eBPF Rootkit Default Persistence
+id: 1a2ea919-d11d-4d1e-8535-06cda13be20f
+status: test
+description: Detects the creation of "ebpfbackdoor" files in both "cron.d" and "sudoers.d" directories. Which both are related to the TripleCross persistence method
+references:
+    - https://github.com/h3xduck/TripleCross/blob/12629558b8b0a27a5488a0b98f1ea7042e76f8ab/apps/deployer.sh
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/07/05
+modified: 2022/12/31
+tags:
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.t1053.003
+
+logsource:
+    product: linux
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: 'ebpfbackdoor'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: high
+
+```

@@ -1,0 +1,53 @@
+---
+title: "Suspicious NTLM Authentication on the Printer Spooler Service"
+status: "experimental"
+created: "2022/05/04"
+last_modified: "2023/02/09"
+tags: [privilege_escalation, credential_access, t1212, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Suspicious NTLM Authentication on the Printer Spooler Service
+
+### Description
+
+Detects a privilege elevation attempt by coercing NTLM authentication on the Printer Spooler service
+
+```yml
+title: Suspicious NTLM Authentication on the Printer Spooler Service
+id: bb76d96b-821c-47cf-944b-7ce377864492
+status: experimental
+description: Detects a privilege elevation attempt by coercing NTLM authentication on the Printer Spooler service
+references:
+    - https://twitter.com/med0x2e/status/1520402518685200384
+    - https://github.com/elastic/detection-rules/blob/dd224fb3f81d0b4bf8593c5f02a029d647ba2b2d/rules/windows/credential_access_relay_ntlm_auth_via_http_spoolss.toml
+author: Elastic (idea), Tobias Michalski (Nextron Systems)
+date: 2022/05/04
+modified: 2023/02/09
+tags:
+    - attack.privilege_escalation
+    - attack.credential_access
+    - attack.t1212
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\rundll32.exe'
+        - OriginalFileName: 'RUNDLL32.EXE'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'C:\windows\system32\davclnt.dll,DavSetCookie'
+            - 'http'
+        CommandLine|contains:
+            - 'spoolss'
+            - 'srvsvc'
+            - '/print/pipe/'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: high
+
+```

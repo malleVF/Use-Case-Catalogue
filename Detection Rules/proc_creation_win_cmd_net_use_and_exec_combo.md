@@ -1,0 +1,56 @@
+---
+title: "Suspicious File Execution From Internet Hosted WebDav Share"
+status: "experimental"
+created: "2022/09/01"
+last_modified: "2023/02/21"
+tags: [execution, t1059_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Suspicious File Execution From Internet Hosted WebDav Share
+
+### Description
+
+Detects the execution of the "net use" command to mount a WebDAV server and then immediately execute some content in it. As seen being used in malicious LNK files
+
+```yml
+title: Suspicious File Execution From Internet Hosted WebDav Share
+id: f0507c0f-a3a2-40f5-acc6-7f543c334993
+status: experimental
+description: Detects the execution of the "net use" command to mount a WebDAV server and then immediately execute some content in it. As seen being used in malicious LNK files
+references:
+    - https://twitter.com/ShadowChasing1/status/1552595370961944576
+    - https://www.virustotal.com/gui/file/a63376ee1dba76361df73338928e528ca5b20171ea74c24581605366dcaa0104/behavior
+author: pH-T (Nextron Systems)
+date: 2022/09/01
+modified: 2023/02/21
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|contains: '\cmd.exe'
+        - OriginalFileName: 'Cmd.EXE'
+    selection_base:
+        CommandLine|contains|all:
+            - ' net use http'
+            - '& start /b '
+            - '\DavWWWRoot\'
+    selection_ext:
+        CommandLine|contains:
+            - '.exe '
+            - '.dll '
+            - '.bat '
+            - '.vbs '
+            - '.ps1 '
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: high
+
+```

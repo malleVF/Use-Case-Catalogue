@@ -1,0 +1,58 @@
+---
+title: "HackTool Service Registration or Execution"
+status: "test"
+created: "2022/03/21"
+last_modified: "2023/08/07"
+tags: [execution, t1569_002, s0029, detection_rule]
+logsrc_product: "windows"
+logsrc_service: "system"
+level: "high"
+---
+
+## HackTool Service Registration or Execution
+
+### Description
+
+Detects installation or execution of services
+
+```yml
+title: HackTool Service Registration or Execution
+id: d26ce60c-2151-403c-9a42-49420d87b5e4
+status: test
+description: Detects installation or execution of services
+references:
+    - Internal Research
+author: Florian Roth (Nextron Systems)
+date: 2022/03/21
+modified: 2023/08/07
+tags:
+    - attack.execution
+    - attack.t1569.002
+    - attack.s0029
+logsource:
+    product: windows
+    service: system
+detection:
+    selection_eid:
+        Provider_Name: 'Service Control Manager'
+        EventID:
+            - 7045
+            - 7036
+    selection_service_name:
+        ServiceName|contains:
+            - 'cachedump'
+            - 'DumpSvc'
+            - 'gsecdump'
+            - 'pwdump'
+            - 'UACBypassedService'
+            - 'WCE SERVICE'
+            - 'WCESERVICE'
+            - 'winexesvc'
+    selection_service_image:
+        ImagePath|contains: 'bypass' # https://gist.github.com/tyranid/c24cfd1bd141d14d4925043ee7e03c82#file-scmuacbypass-cpp-L159
+    condition: selection_eid and 1 of selection_service_*
+falsepositives:
+    - Unknown
+level: high
+
+```

@@ -1,0 +1,45 @@
+---
+title: "Base64 MZ Header In CommandLine"
+status: "test"
+created: "2022/07/12"
+last_modified: ""
+tags: [execution, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Base64 MZ Header In CommandLine
+
+### Description
+
+Detects encoded base64 MZ header in the commandline
+
+```yml
+title: Base64 MZ Header In CommandLine
+id: 22e58743-4ac8-4a9f-bf19-00a0428d8c5f
+status: test
+description: Detects encoded base64 MZ header in the commandline
+references:
+    - https://thedfirreport.com/2022/07/11/select-xmrig-from-sqlserver/
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/07/12
+tags:
+    - attack.execution
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains:
+            - 'TVqQAAMAAAAEAAAA' # MZ..........
+            - 'TVpQAAIAAAAEAA8A'
+            - 'TVqAAAEAAAAEABAA'
+            - 'TVoAAAAAAAAAAAAA'
+            - 'TVpTAQEAAAAEAAAA'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: high
+
+```

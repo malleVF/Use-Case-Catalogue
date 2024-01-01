@@ -1,0 +1,48 @@
+---
+title: "Enable BPF Kprobes Tracing"
+status: "test"
+created: "2023/01/25"
+last_modified: ""
+tags: [execution, defense_evasion, detection_rule]
+logsrc_product: "linux"
+logsrc_service: ""
+level: "medium"
+---
+
+## Enable BPF Kprobes Tracing
+
+### Description
+
+Detects common command used to enable bpf kprobes tracing
+
+```yml
+title: Enable BPF Kprobes Tracing
+id: 7692f583-bd30-4008-8615-75dab3f08a99
+status: test
+description: Detects common command used to enable bpf kprobes tracing
+references:
+    - https://embracethered.com/blog/posts/2021/offensive-bpf-bpftrace/
+    - https://bpftrace.org/
+    - https://www.kernel.org/doc/html/v5.0/trace/kprobetrace.html
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2023/01/25
+tags:
+    - attack.execution
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection:
+        CommandLine|contains|all:
+            - 'echo 1 >'
+            - '/sys/kernel/debug/tracing/events/kprobes/'
+        CommandLine|contains:
+            - '/myprobe/enable'
+            - '/myretprobe/enable'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

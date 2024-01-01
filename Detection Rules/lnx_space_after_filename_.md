@@ -1,0 +1,42 @@
+---
+title: "Space After Filename"
+status: "test"
+created: "2020/06/17"
+last_modified: "2021/11/27"
+tags: [execution, detection_rule]
+logsrc_product: "linux"
+logsrc_service: ""
+level: "low"
+---
+
+## Space After Filename
+
+### Description
+
+Detects space after filename
+
+```yml
+title: Space After Filename
+id: 879c3015-c88b-4782-93d7-07adf92dbcb7
+status: test
+description: Detects space after filename
+references:
+    - https://attack.mitre.org/techniques/T1064
+author: Ömer Günal
+date: 2020/06/17
+modified: 2021/11/27
+tags:
+    - attack.execution
+logsource:
+    product: linux
+detection:
+    selection1:
+        - 'echo "*" > * && chmod +x *'
+    selection2:
+        - 'mv * "* "'
+    condition: all of selection*
+falsepositives:
+    - Typos
+level: low
+
+```

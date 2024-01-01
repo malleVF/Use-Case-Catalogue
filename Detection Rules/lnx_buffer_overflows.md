@@ -1,0 +1,43 @@
+---
+title: "Buffer Overflow Attempts"
+status: "stable"
+created: "2017/03/01"
+last_modified: ""
+tags: [t1068, privilege_escalation, detection_rule]
+logsrc_product: "linux"
+logsrc_service: ""
+level: "high"
+---
+
+## Buffer Overflow Attempts
+
+### Description
+
+Detects buffer overflow attempts in Unix system log files
+
+```yml
+title: Buffer Overflow Attempts
+id: 18b042f0-2ecd-4b6e-9f8d-aa7a7e7de781
+status: stable
+description: Detects buffer overflow attempts in Unix system log files
+references:
+    - https://github.com/ossec/ossec-hids/blob/1ecffb1b884607cb12e619f9ab3c04f530801083/etc/rules/attack_rules.xml
+author: Florian Roth (Nextron Systems)
+date: 2017/03/01
+tags:
+    - attack.t1068
+    - attack.privilege_escalation
+logsource:
+    product: linux
+detection:
+    keywords:
+        - 'attempt to execute code on stack by'
+        - 'FTP LOGIN FROM .* 0bin0sh'
+        - 'rpc.statd[\d+]: gethostbyname error for'
+        - 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+    condition: keywords
+falsepositives:
+    - Unknown
+level: high
+
+```

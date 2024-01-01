@@ -1,0 +1,49 @@
+---
+title: "Commands to Clear or Remove the Syslog - Builtin"
+status: "test"
+created: "2021/09/10"
+last_modified: "2022/11/26"
+tags: [impact, t1565_001, detection_rule]
+logsrc_product: "linux"
+logsrc_service: ""
+level: "high"
+---
+
+## Commands to Clear or Remove the Syslog - Builtin
+
+### Description
+
+Detects specific commands commonly used to remove or empty the syslog
+
+```yml
+title: Commands to Clear or Remove the Syslog - Builtin
+id: e09eb557-96d2-4de9-ba2d-30f712a5afd3
+status: test
+description: Detects specific commands commonly used to remove or empty the syslog
+references:
+    - https://www.virustotal.com/gui/file/fc614fb4bda24ae8ca2c44e812d12c0fab6dd7a097472a35dd12ded053ab8474
+author: Max Altgelt (Nextron Systems)
+date: 2021/09/10
+modified: 2022/11/26
+tags:
+    - attack.impact
+    - attack.t1565.001
+logsource:
+    product: linux
+detection:
+    selection:
+        - 'rm /var/log/syslog'
+        - 'rm -r /var/log/syslog'
+        - 'rm -f /var/log/syslog'
+        - 'rm -rf /var/log/syslog'
+        - 'mv /var/log/syslog'
+        - ' >/var/log/syslog'
+        - ' > /var/log/syslog'
+    falsepositives:
+        - '/syslog.'
+    condition: selection and not falsepositives
+falsepositives:
+    - Log rotation
+level: high
+
+```

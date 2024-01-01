@@ -1,0 +1,50 @@
+---
+title: "Service StartupType Change Via PowerShell Set-Service"
+status: "experimental"
+created: "2023/03/04"
+last_modified: ""
+tags: [execution, defense_evasion, t1562_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Service StartupType Change Via PowerShell Set-Service
+
+### Description
+
+Detects the use of the PowerShell "Set-Service" cmdlet to change the startup type of a service to "disabled" or "manual"
+
+```yml
+title: Service StartupType Change Via PowerShell Set-Service
+id: 62b20d44-1546-4e61-afce-8e175eb9473c
+status: experimental
+description: Detects the use of the PowerShell "Set-Service" cmdlet to change the startup type of a service to "disabled" or "manual"
+references:
+    - https://www.virustotal.com/gui/file/38283b775552da8981452941ea74191aa0d203edd3f61fb2dee7b0aea3514955
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2023/03/04
+tags:
+    - attack.execution
+    - attack.defense_evasion
+    - attack.t1562.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\powershell.exe'
+        - OriginalFileName: 'PowerShell.EXE'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'Set-Service'
+            - '-StartupType'
+        CommandLine|contains:
+            - 'Disabled'
+            - 'Manual'
+    condition: all of selection_*
+falsepositives:
+    - False positives may occur with troubleshooting scripts
+level: medium
+
+```

@@ -1,0 +1,43 @@
+---
+title: "Azure Suppression Rule Created"
+status: "test"
+created: "2021/08/16"
+last_modified: "2022/08/23"
+tags: [impact, detection_rule]
+logsrc_product: "azure"
+logsrc_service: "activitylogs"
+level: "medium"
+---
+
+## Azure Suppression Rule Created
+
+### Description
+
+Identifies when a suppression rule is created in Azure. Adversary's could attempt this to evade detection.
+
+```yml
+title: Azure Suppression Rule Created
+id: 92cc3e5d-eb57-419d-8c16-5c63f325a401
+status: test
+description: Identifies when a suppression rule is created in Azure. Adversary's could attempt this to evade detection.
+references:
+    - https://docs.microsoft.com/en-us/azure/role-based-access-control/resource-provider-operations
+author: Austin Songer
+date: 2021/08/16
+modified: 2022/08/23
+tags:
+    - attack.impact
+logsource:
+    product: azure
+    service: activitylogs
+detection:
+    selection:
+        operationName: MICROSOFT.SECURITY/ALERTSSUPPRESSIONRULES/WRITE
+    condition: selection
+falsepositives:
+    - Suppression Rule being created may be performed by a system administrator.
+    - Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.
+    - Suppression Rule created from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule.
+level: medium
+
+```

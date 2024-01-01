@@ -1,0 +1,49 @@
+---
+title: "Execute MSDT Via Answer File"
+status: "test"
+created: "2022/06/13"
+last_modified: ""
+tags: [defense_evasion, t1218, execution, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Execute MSDT Via Answer File
+
+### Description
+
+Detects execution of "msdt.exe" using an answer file which is simulating the legitimate way of calling msdt via "pcwrun.exe" (For example from the compatibility tab)
+
+```yml
+title: Execute MSDT Via Answer File
+id: 9c8c7000-3065-44a8-a555-79bcba5d9955
+status: test
+description: Detects execution of "msdt.exe" using an answer file which is simulating the legitimate way of calling msdt via "pcwrun.exe" (For example from the compatibility tab)
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Msdt/
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/06/13
+tags:
+    - attack.defense_evasion
+    - attack.t1218
+    - attack.execution
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_cli:
+        Image|endswith: '\msdt.exe'
+        CommandLine|contains: '\WINDOWS\diagnostics\index\PCWDiagnostic.xml'
+    selection_answer:
+        CommandLine|contains:
+            - ' -af '
+            - ' /af '
+    filter:
+        ParentImage|endswith: '\pcwrun.exe'
+    condition: all of selection* and not filter
+falsepositives:
+    - Possible undocumented parents of "msdt" other than "pcwrun"
+level: high
+
+```

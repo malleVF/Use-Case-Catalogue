@@ -1,0 +1,43 @@
+---
+title: "Password Policy Enumerated"
+status: "experimental"
+created: "2023/05/19"
+last_modified: ""
+tags: [discovery, t1201, detection_rule]
+logsrc_product: "windows"
+logsrc_service: "security"
+level: "medium"
+---
+
+## Password Policy Enumerated
+
+### Description
+
+Detects when the password policy is enumerated.
+
+```yml
+title: Password Policy Enumerated
+id: 12ba6a38-adb3-4d6b-91ba-a7fb248e3199
+status: experimental
+description: Detects when the password policy is enumerated.
+references:
+    - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4661
+    - https://github.com/jpalanco/alienvault-ossim/blob/f74359c0c027e42560924b5cff25cdf121e5505a/os-sim/agent/src/ParserUtil.py#L951
+author: Zach Mathis
+date: 2023/05/19
+tags:
+    - attack.discovery
+    - attack.t1201
+logsource:
+    product: windows
+    service: security
+    definition: dfd8c0f4-e6ad-4e07-b91b-f2fca0ddef64
+detection:
+    selection:
+        EventID: 4661 # A handle to an object was requested.
+        AccessList|contains: '%%5392' # ReadPasswordParameters
+        ObjectServer: 'Security Account Manager'
+    condition: selection
+level: medium
+
+```

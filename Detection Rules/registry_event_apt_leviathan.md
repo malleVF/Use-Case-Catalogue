@@ -1,0 +1,40 @@
+---
+title: "Leviathan Registry Key Activity"
+status: "test"
+created: "2020/07/07"
+last_modified: "2023/09/19"
+tags: [persistence, t1547_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "critical"
+---
+
+## Leviathan Registry Key Activity
+
+### Description
+
+Detects registry key used by Leviathan APT in Malaysian focused campaign
+
+```yml
+title: Leviathan Registry Key Activity
+id: 70d43542-cd2d-483c-8f30-f16b436fd7db
+status: test
+description: Detects registry key used by Leviathan APT in Malaysian focused campaign
+references:
+    - https://www.elastic.co/blog/advanced-techniques-used-in-malaysian-focused-apt-campaign
+author: Aidan Bracher
+date: 2020/07/07
+modified: 2023/09/19
+tags:
+    - attack.persistence
+    - attack.t1547.001
+logsource:
+    category: registry_event
+    product: windows
+detection:
+    selection:
+        TargetObject|contains: '\Software\Microsoft\Windows\CurrentVersion\Run\ntkd'
+    condition: selection
+level: critical
+
+```

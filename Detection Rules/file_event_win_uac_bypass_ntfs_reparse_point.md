@@ -1,0 +1,44 @@
+---
+title: "UAC Bypass Using NTFS Reparse Point - File"
+status: "test"
+created: "2021/08/30"
+last_modified: "2022/10/09"
+tags: [defense_evasion, privilege_escalation, t1548_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## UAC Bypass Using NTFS Reparse Point - File
+
+### Description
+
+Detects the pattern of UAC Bypass using NTFS reparse point and wusa.exe DLL hijacking (UACMe 36)
+
+```yml
+title: UAC Bypass Using NTFS Reparse Point - File
+id: 7fff6773-2baa-46de-a24a-b6eec1aba2d1
+status: test
+description: Detects the pattern of UAC Bypass using NTFS reparse point and wusa.exe DLL hijacking (UACMe 36)
+references:
+    - https://github.com/hfiref0x/UACME
+author: Christian Burkard (Nextron Systems)
+date: 2021/08/30
+modified: 2022/10/09
+tags:
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1548.002
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        TargetFilename|startswith: 'C:\Users\'
+        TargetFilename|endswith: '\AppData\Local\Temp\api-ms-win-core-kernel32-legacy-l1.DLL'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+
+```

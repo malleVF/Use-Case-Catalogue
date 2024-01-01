@@ -1,0 +1,51 @@
+---
+title: "Potential Discovery Activity Via Dnscmd.EXE"
+status: "test"
+created: "2022/07/31"
+last_modified: "2023/02/04"
+tags: [discovery, execution, t1543_003, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Potential Discovery Activity Via Dnscmd.EXE
+
+### Description
+
+Detects an attempt to leverage dnscmd.exe to enumerate the DNS zones of a domain. DNS zones used to host the DNS records for a particular domain.
+
+```yml
+title: Potential Discovery Activity Via Dnscmd.EXE
+id: b6457d63-d2a2-4e29-859d-4e7affc153d1
+status: test
+description: Detects an attempt to leverage dnscmd.exe to enumerate the DNS zones of a domain. DNS zones used to host the DNS records for a particular domain.
+references:
+    - https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dnscmd
+    - https://docs.microsoft.com/en-us/azure/dns/dns-zones-records
+    - https://lolbas-project.github.io/lolbas/Binaries/Dnscmd/
+author: '@gott_cyber'
+date: 2022/07/31
+modified: 2023/02/04
+tags:
+    - attack.discovery
+    - attack.execution
+    - attack.t1543.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        Image|endswith: '\dnscmd.exe'
+    selection_cli:
+        CommandLine|contains:
+            - '/enumrecords'
+            - '/enumzones'
+            - '/ZonePrint'
+            - '/info'
+    condition: all of selection_*
+falsepositives:
+    - Legitimate administration use
+level: medium
+
+```

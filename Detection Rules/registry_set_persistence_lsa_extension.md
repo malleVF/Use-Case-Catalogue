@@ -1,0 +1,46 @@
+---
+title: "Potential Persistence Via LSA Extensions"
+status: "experimental"
+created: "2022/07/21"
+last_modified: "2023/08/17"
+tags: [persistence, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Potential Persistence Via LSA Extensions
+
+### Description
+
+Detects when an attacker modifies the "REG_MULTI_SZ" value named "Extensions" to include a custom DLL to achieve persistence via lsass.
+The "Extensions" list contains filenames of DLLs being automatically loaded by lsass.exe. Each DLL has its InitializeLsaExtension() method called after loading.
+
+
+```yml
+title: Potential Persistence Via LSA Extensions
+id: 41f6531d-af6e-4c6e-918f-b946f2b85a36
+status: experimental
+description: |
+    Detects when an attacker modifies the "REG_MULTI_SZ" value named "Extensions" to include a custom DLL to achieve persistence via lsass.
+    The "Extensions" list contains filenames of DLLs being automatically loaded by lsass.exe. Each DLL has its InitializeLsaExtension() method called after loading.
+references:
+    - https://persistence-info.github.io/Data/lsaaextension.html
+    - https://twitter.com/0gtweet/status/1476286368385019906
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/07/21
+modified: 2023/08/17
+tags:
+    - attack.persistence
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection:
+        TargetObject|contains: '\SYSTEM\CurrentControlSet\Control\LsaExtensionConfig\LsaSrv\Extensions'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: high
+
+```

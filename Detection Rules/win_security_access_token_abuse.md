@@ -1,0 +1,49 @@
+---
+title: "Potential Access Token Abuse"
+status: "experimental"
+created: "2022/11/06"
+last_modified: "2023/04/26"
+tags: [defense_evasion, privilege_escalation, t1134_001, stp_4u, detection_rule]
+logsrc_product: "windows"
+logsrc_service: "security"
+level: "medium"
+---
+
+## Potential Access Token Abuse
+
+### Description
+
+Detects potential token impersonation and theft. Example, when using "DuplicateToken(Ex)" and "ImpersonateLoggedOnUser" with the "LOGON32_LOGON_NEW_CREDENTIALS flag".
+
+```yml
+title: Potential Access Token Abuse
+id: 02f7c9c1-1ae8-4c6a-8add-04693807f92f
+status: experimental
+description: Detects potential token impersonation and theft. Example, when using "DuplicateToken(Ex)" and "ImpersonateLoggedOnUser" with the "LOGON32_LOGON_NEW_CREDENTIALS flag".
+references:
+    - https://www.elastic.co/fr/blog/how-attackers-abuse-access-token-manipulation
+    - https://www.manageengine.com/log-management/cyber-security/access-token-manipulation.html
+author: Michaela Adams, Zach Mathis
+date: 2022/11/06
+modified: 2023/04/26
+tags:
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1134.001
+    - stp.4u
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 9
+        LogonProcessName: 'Advapi'
+        AuthenticationPackageName: 'Negotiate'
+        ImpersonationLevel: '%%1833' # Impersonation
+    condition: selection
+falsepositives:
+    - Anti-Virus
+level: medium
+
+```

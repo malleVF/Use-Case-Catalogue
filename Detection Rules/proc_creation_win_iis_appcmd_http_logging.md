@@ -1,0 +1,49 @@
+---
+title: "Disable Windows IIS HTTP Logging"
+status: "test"
+created: "2022/01/09"
+last_modified: "2023/01/22"
+tags: [defense_evasion, t1562_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Disable Windows IIS HTTP Logging
+
+### Description
+
+Disables HTTP logging on a Windows IIS web server as seen by Threat Group 3390 (Bronze Union)
+
+```yml
+title: Disable Windows IIS HTTP Logging
+id: e4ed6030-ffe5-4e6a-8a8a-ab3c1ab9d94e
+status: test
+description: Disables HTTP logging on a Windows IIS web server as seen by Threat Group 3390 (Bronze Union)
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1562.002/T1562.002.md#atomic-test-1---disable-windows-iis-http-logging
+author: frack113
+date: 2022/01/09
+modified: 2023/01/22
+tags:
+    - attack.defense_evasion
+    - attack.t1562.002
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\appcmd.exe'
+        - OriginalFileName: 'appcmd.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'set'
+            - 'config'
+            - 'section:httplogging'
+            - 'dontLog:true'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: high
+
+```

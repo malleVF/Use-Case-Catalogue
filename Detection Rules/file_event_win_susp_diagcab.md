@@ -1,0 +1,40 @@
+---
+title: "Creation of a Diagcab"
+status: "test"
+created: "2022/06/08"
+last_modified: ""
+tags: [resource_development, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Creation of a Diagcab
+
+### Description
+
+Detects the creation of diagcab file, which could be caused by some legitimate installer or is a sign of exploitation (review the filename and its location)
+
+```yml
+title: Creation of a Diagcab
+id: 3d0ed417-3d94-4963-a562-4a92c940656a
+status: test
+description: Detects the creation of diagcab file, which could be caused by some legitimate installer or is a sign of exploitation (review the filename and its location)
+references:
+    - https://threadreaderapp.com/thread/1533879688141086720.html
+author: frack113
+date: 2022/06/08
+tags:
+    - attack.resource_development
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: '.diagcab'
+    condition: selection
+falsepositives:
+    - Legitimate microsoft diagcab
+level: medium
+
+```

@@ -1,0 +1,46 @@
+---
+title: "Suspicious PowerShell Get Current User"
+status: "test"
+created: "2022/04/04"
+last_modified: ""
+tags: [discovery, t1033, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "low"
+---
+
+## Suspicious PowerShell Get Current User
+
+### Description
+
+Detects the use of PowerShell to identify the current logged user.
+
+```yml
+title: Suspicious PowerShell Get Current User
+id: 4096a49c-7de4-4da0-a230-c66ccd56ea5a
+status: test
+description: Detects the use of PowerShell to identify the current logged user.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1033/T1033.md#atomic-test-4---user-discovery-with-env-vars-powershell-script
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1033/T1033.md#atomic-test-5---getcurrent-user-with-powershell-script
+author: frack113
+date: 2022/04/04
+tags:
+    - attack.discovery
+    - attack.t1033
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection:
+        ScriptBlockText|contains:
+            - '[System.Environment]::UserName'
+            - '$env:UserName'
+            - '[System.Security.Principal.WindowsIdentity]::GetCurrent()'
+    condition: selection
+falsepositives:
+    - Legitimate PowerShell scripts
+level: low
+
+```

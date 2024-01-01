@@ -1,0 +1,44 @@
+---
+title: "HackTool - SafetyKatz Execution"
+status: "test"
+created: "2022/10/20"
+last_modified: "2023/02/04"
+tags: [credential_access, t1003_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "critical"
+---
+
+## HackTool - SafetyKatz Execution
+
+### Description
+
+Detects the execution of the hacktool SafetyKatz via PE information and default Image name
+
+```yml
+title: HackTool - SafetyKatz Execution
+id: b1876533-4ed5-4a83-90f3-b8645840a413
+status: test
+description: Detects the execution of the hacktool SafetyKatz via PE information and default Image name
+references:
+    - https://github.com/GhostPack/SafetyKatz
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/10/20
+modified: 2023/02/04
+tags:
+    - attack.credential_access
+    - attack.t1003.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith: '\SafetyKatz.exe'
+        - OriginalFileName: 'SafetyKatz.exe'
+        - Description: 'SafetyKatz'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical
+
+```

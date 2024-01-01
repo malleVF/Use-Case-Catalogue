@@ -1,0 +1,51 @@
+---
+title: "Copy .DMP/.DUMP Files From Remote Share Via Cmd.EXE"
+status: "experimental"
+created: "2022/09/27"
+last_modified: "2023/09/12"
+tags: [credential_access, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Copy .DMP/.DUMP Files From Remote Share Via Cmd.EXE
+
+### Description
+
+Detects usage of the copy builtin cmd command to copy files with the ".dmp"/".dump" extension from a remote share
+
+```yml
+title: Copy .DMP/.DUMP Files From Remote Share Via Cmd.EXE
+id: 044ba588-dff4-4918-9808-3f95e8160606
+status: experimental
+description: Detects usage of the copy builtin cmd command to copy files with the ".dmp"/".dump" extension from a remote share
+references:
+    - https://thedfirreport.com/2022/09/26/bumblebee-round-two/
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/09/27
+modified: 2023/09/12
+tags:
+    - attack.credential_access
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    # Example: copy \\<host>\\<folder>\\process.dmp C:\Users\process.dmp
+    selection_img:
+        - Image|endswith: '\cmd.exe'
+        - OriginalFileName: 'Cmd.Exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'copy '
+            - ' \\\\'
+        CommandLine|contains:
+            - '.dmp'
+            - '.dump'
+            - '.hdmp'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: high
+
+```

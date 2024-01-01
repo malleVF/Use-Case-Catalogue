@@ -1,0 +1,47 @@
+---
+title: "Potential DLL Sideloading Via ClassicExplorer32.dll"
+status: "test"
+created: "2022/12/13"
+last_modified: ""
+tags: [defense_evasion, persistence, privilege_escalation, t1574_001, t1574_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Potential DLL Sideloading Via ClassicExplorer32.dll
+
+### Description
+
+Detects potential DLL sideloading using ClassicExplorer32.dll from the Classic Shell software
+
+```yml
+title: Potential DLL Sideloading Via ClassicExplorer32.dll
+id: caa02837-f659-466f-bca6-48bde2826ab4
+status: test
+description: Detects potential DLL sideloading using ClassicExplorer32.dll from the Classic Shell software
+references:
+    - https://blogs.blackberry.com/en/2022/12/mustang-panda-uses-the-russian-ukrainian-war-to-attack-europe-and-asia-pacific-targets
+    - https://app.any.run/tasks/6d8cabb0-dcda-44b6-8050-28d6ce281687/
+author: frack113
+date: 2022/12/13
+tags:
+    - attack.defense_evasion
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1574.001
+    - attack.t1574.002
+logsource:
+    category: image_load
+    product: windows
+detection:
+    selection_classicexplorer:
+        ImageLoaded|endswith: '\ClassicExplorer32.dll'
+    filter_classicexplorer:
+        ImageLoaded|startswith: 'C:\Program Files\Classic Shell\'
+    condition: selection_classicexplorer and not filter_classicexplorer
+falsepositives:
+    - Unknown
+level: medium
+
+```

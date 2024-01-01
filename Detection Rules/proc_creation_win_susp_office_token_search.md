@@ -1,0 +1,45 @@
+---
+title: "Suspicious Office Token Search Via CLI"
+status: "test"
+created: "2022/10/25"
+last_modified: ""
+tags: [credential_access, t1528, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Suspicious Office Token Search Via CLI
+
+### Description
+
+Detects possible search for office tokens via CLI by looking for the string "eyJ0eX". This string is used as an anchor to look for the start of the JWT token used by office and similar apps.
+
+```yml
+title: Suspicious Office Token Search Via CLI
+id: 6d3a3952-6530-44a3-8554-cf17c116c615
+status: test
+description: Detects possible search for office tokens via CLI by looking for the string "eyJ0eX". This string is used as an anchor to look for the start of the JWT token used by office and similar apps.
+references:
+    - https://mrd0x.com/stealing-tokens-from-office-applications/
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/10/25
+tags:
+    - attack.credential_access
+    - attack.t1528
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains:
+            - 'eyJ0eXAiOi' # {"typ":
+            - ' eyJ0eX'
+            - ' "eyJ0eX"'
+            - " 'eyJ0eX'"
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

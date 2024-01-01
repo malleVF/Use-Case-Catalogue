@@ -1,0 +1,43 @@
+---
+title: "Enable Windows Remote Management"
+status: "test"
+created: "2022/01/07"
+last_modified: ""
+tags: [lateral_movement, t1021_006, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Enable Windows Remote Management
+
+### Description
+
+Adversaries may use Valid Accounts to interact with remote systems using Windows Remote Management (WinRM). The adversary may then perform actions as the logged-on user.
+
+```yml
+title: Enable Windows Remote Management
+id: 991a9744-f2f0-44f2-bd33-9092eba17dc3
+status: test
+description: Adversaries may use Valid Accounts to interact with remote systems using Windows Remote Management (WinRM). The adversary may then perform actions as the logged-on user.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1021.006/T1021.006.md#atomic-test-1---enable-windows-remote-management
+    - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/enable-psremoting?view=powershell-7.2
+author: frack113
+date: 2022/01/07
+tags:
+    - attack.lateral_movement
+    - attack.t1021.006
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection_cmdlet:
+        ScriptBlockText|contains: 'Enable-PSRemoting '
+    condition: selection_cmdlet
+falsepositives:
+    - Legitimate script
+level: medium
+
+```

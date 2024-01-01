@@ -1,0 +1,47 @@
+---
+title: "Troubleshooting Pack Cmdlet Execution"
+status: "test"
+created: "2022/06/21"
+last_modified: ""
+tags: [defense_evasion, t1202, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Troubleshooting Pack Cmdlet Execution
+
+### Description
+
+Detects execution of "TroubleshootingPack" cmdlets to leverage CVE-2022-30190 or action similar to "msdt" lolbin (as described in LOLBAS)
+
+```yml
+title: Troubleshooting Pack Cmdlet Execution
+id: 03409c93-a7c7-49ba-9a4c-a00badf2a153
+status: test
+description: Detects execution of "TroubleshootingPack" cmdlets to leverage CVE-2022-30190 or action similar to "msdt" lolbin (as described in LOLBAS)
+references:
+    - https://twitter.com/nas_bench/status/1537919885031772161
+    - https://lolbas-project.github.io/lolbas/Binaries/Msdt/
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/06/21
+tags:
+    - attack.defense_evasion
+    - attack.t1202
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection:
+        ScriptBlockText|contains|all:
+            - 'Invoke-TroubleshootingPack'
+            - 'C:\Windows\Diagnostics\System\PCW'
+            - '-AnswerFile'
+            - '-Unattended'
+    condition: selection
+falsepositives:
+    - Legitimate usage of "TroubleshootingPack" cmdlet for troubleshooting purposes
+level: medium
+
+```

@@ -1,0 +1,65 @@
+---
+title: "Azure Kubernetes Admission Controller"
+status: "test"
+created: "2021/11/25"
+last_modified: "2022/12/18"
+tags: [persistence, t1078, credential_access, t1552, t1552_007, detection_rule]
+logsrc_product: "azure"
+logsrc_service: "activitylogs"
+level: "medium"
+---
+
+## Azure Kubernetes Admission Controller
+
+### Description
+
+Identifies when an admission controller is executed in Azure Kubernetes.
+A Kubernetes Admission controller intercepts, and possibly modifies, requests to the Kubernetes API server.
+The behavior of this admission controller is determined by an admission webhook (MutatingAdmissionWebhook or ValidatingAdmissionWebhook) that the user deploys in the cluster.
+An adversary can use such webhooks as the MutatingAdmissionWebhook for obtaining persistence in the cluster.
+For example, attackers can intercept and modify the pod creation operations in the cluster and add their malicious container to every created pod.
+An adversary can use the webhook ValidatingAdmissionWebhook, which could be used to obtain access credentials.
+An adversary could use the webhook to intercept the requests to the API server, record secrets, and other sensitive information.
+
+
+```yml
+title: Azure Kubernetes Admission Controller
+id: a61a3c56-4ce2-4351-a079-88ae4cbd2b58
+status: test
+description: |
+  Identifies when an admission controller is executed in Azure Kubernetes.
+  A Kubernetes Admission controller intercepts, and possibly modifies, requests to the Kubernetes API server.
+  The behavior of this admission controller is determined by an admission webhook (MutatingAdmissionWebhook or ValidatingAdmissionWebhook) that the user deploys in the cluster.
+  An adversary can use such webhooks as the MutatingAdmissionWebhook for obtaining persistence in the cluster.
+  For example, attackers can intercept and modify the pod creation operations in the cluster and add their malicious container to every created pod.
+  An adversary can use the webhook ValidatingAdmissionWebhook, which could be used to obtain access credentials.
+  An adversary could use the webhook to intercept the requests to the API server, record secrets, and other sensitive information.
+references:
+    - https://docs.microsoft.com/en-us/azure/role-based-access-control/resource-provider-operations#microsoftkubernetes
+author: Austin Songer @austinsonger
+date: 2021/11/25
+modified: 2022/12/18
+tags:
+    - attack.persistence
+    - attack.t1078
+    - attack.credential_access
+    - attack.t1552
+    - attack.t1552.007
+logsource:
+    product: azure
+    service: activitylogs
+detection:
+    selection:
+        operationName|startswith:
+            - 'MICROSOFT.KUBERNETES/CONNECTEDCLUSTERS/ADMISSIONREGISTRATION.K8S.IO'
+            - 'MICROSOFT.CONTAINERSERVICE/MANAGEDCLUSTERS/ADMISSIONREGISTRATION.K8S.IO'
+        operationName|endswith:
+            - '/MUTATINGWEBHOOKCONFIGURATIONS/WRITE'
+            - '/VALIDATINGWEBHOOKCONFIGURATIONS/WRITE'
+    condition: selection
+falsepositives:
+    - Azure Kubernetes Admissions Controller may be done by a system administrator.
+    - If known behavior is causing false positives, it can be exempted from the rule.
+level: medium
+
+```

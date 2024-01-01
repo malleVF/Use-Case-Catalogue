@@ -1,0 +1,71 @@
+---
+title: "Suspicious XOR Encoded PowerShell Command"
+status: "test"
+created: "2018/09/05"
+last_modified: "2023/01/30"
+tags: [defense_evasion, execution, t1059_001, t1140, t1027, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Suspicious XOR Encoded PowerShell Command
+
+### Description
+
+Detects presence of a potentially xor encoded powershell command
+
+```yml
+title: Suspicious XOR Encoded PowerShell Command
+id: bb780e0c-16cf-4383-8383-1e5471db6cf9
+related:
+    - id: 5b572dcf-254b-425c-a8c5-d9af6bea35a6
+      type: obsoletes
+status: test
+description: Detects presence of a potentially xor encoded powershell command
+references:
+    - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=65
+    - https://redcanary.com/blog/yellow-cockatoo/
+    - https://zero2auto.com/2020/05/19/netwalker-re/
+    - https://mez0.cc/posts/cobaltstrike-powershell-exec/
+author: Sami Ruohonen, Harish Segar, Tim Shelton, Teymur Kheirkhabarov, Vasiliy Burov, oscd.community, Nasreddine Bencherchali
+date: 2018/09/05
+modified: 2023/01/30
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.t1059.001
+    - attack.t1140
+    - attack.t1027
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\powershell.exe'
+              - '\pwsh.exe'
+        - OriginalFileName:
+              - 'PowerShell.EXE'
+              - 'pwsh.dll'
+        - Description: 'Windows PowerShell'
+        - Product: 'PowerShell Core 6'
+    selection_cli_xor:
+        CommandLine|contains: 'bxor'
+    selection_cli_other:
+        CommandLine|contains:
+            - 'ForEach'
+            - 'for('
+            - 'for '
+            - '-join '
+            - "-join'"
+            - '-join"'
+            - '-join`'
+            - '::Join'
+            - '[char]'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: medium
+
+```

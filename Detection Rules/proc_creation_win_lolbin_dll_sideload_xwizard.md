@@ -1,0 +1,45 @@
+---
+title: "Xwizard DLL Sideloading"
+status: "test"
+created: "2021/09/20"
+last_modified: "2022/10/09"
+tags: [defense_evasion, t1574_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Xwizard DLL Sideloading
+
+### Description
+
+Detects the execution of Xwizard tool from the non-default directory which can be used to sideload a custom xwizards.dll
+
+```yml
+title: Xwizard DLL Sideloading
+id: 193d5ccd-6f59-40c6-b5b0-8e32d5ddd3d1
+status: test
+description: Detects the execution of Xwizard tool from the non-default directory which can be used to sideload a custom xwizards.dll
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Xwizard/
+    - http://www.hexacorn.com/blog/2017/07/31/the-wizard-of-x-oppa-plugx-style/
+author: Christian Burkard (Nextron Systems)
+date: 2021/09/20
+modified: 2022/10/09
+tags:
+    - attack.defense_evasion
+    - attack.t1574.002
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\xwizard.exe'
+    filter:
+        Image|startswith: 'C:\Windows\System32\'
+    condition: selection and not filter
+falsepositives:
+    - Windows installed on non-C drive
+level: high
+
+```

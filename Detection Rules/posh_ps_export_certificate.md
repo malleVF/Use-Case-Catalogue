@@ -1,0 +1,52 @@
+---
+title: "Certificate Exported Via PowerShell - ScriptBlock"
+status: "test"
+created: "2021/04/23"
+last_modified: "2023/05/18"
+tags: [credential_access, t1552_004, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Certificate Exported Via PowerShell - ScriptBlock
+
+### Description
+
+Detects calls to cmdlets inside of PowerShell scripts that are used to export certificates from the local certificate store. Threat actors were seen abusing this to steal private keys from compromised machines.
+
+```yml
+title: Certificate Exported Via PowerShell - ScriptBlock
+id: aa7a3fce-bef5-4311-9cc1-5f04bb8c308c
+related:
+    - id: 9e716b33-63b2-46da-86a4-bd3c3b9b5dfb
+      type: similar
+status: test
+description: Detects calls to cmdlets inside of PowerShell scripts that are used to export certificates from the local certificate store. Threat actors were seen abusing this to steal private keys from compromised machines.
+references:
+    - https://us-cert.cisa.gov/ncas/analysis-reports/ar21-112a
+    - https://docs.microsoft.com/en-us/powershell/module/pki/export-pfxcertificate
+    - https://www.splunk.com/en_us/blog/security/breaking-the-chain-defending-against-certificate-services-abuse.html
+author: Florian Roth (Nextron Systems)
+date: 2021/04/23
+modified: 2023/05/18
+tags:
+    - attack.credential_access
+    - attack.t1552.004
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection:
+        ScriptBlockText|contains:
+            - 'Export-PfxCertificate'
+            - 'Export-Certificate'
+    filter_optional_module_export:
+        ScriptBlockText|contains: 'CmdletsToExport = @('
+    condition: selection and not 1 of filter_optional_*
+falsepositives:
+    - Legitimate certificate exports by administrators. Additional filters might be required.
+level: medium
+
+```

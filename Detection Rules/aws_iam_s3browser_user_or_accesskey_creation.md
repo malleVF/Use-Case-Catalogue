@@ -1,0 +1,47 @@
+---
+title: "AWS IAM S3Browser User or AccessKey Creation"
+status: "experimental"
+created: "2023/05/17"
+last_modified: ""
+tags: [execution, persistence, t1059_009, t1078_004, detection_rule]
+logsrc_product: "aws"
+logsrc_service: "cloudtrail"
+level: "high"
+---
+
+## AWS IAM S3Browser User or AccessKey Creation
+
+### Description
+
+Detects S3 Browser utility creating IAM User or AccessKey.
+
+```yml
+title: AWS IAM S3Browser User or AccessKey Creation
+id: db014773-d9d9-4792-91e5-133337c0ffee
+status: experimental
+description: Detects S3 Browser utility creating IAM User or AccessKey.
+references:
+    - https://permiso.io/blog/s/unmasking-guivil-new-cloud-threat-actor
+author: daniel.bohannon@permiso.io (@danielhbohannon)
+date: 2023/05/17
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.t1059.009
+    - attack.t1078.004
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource: 'iam.amazonaws.com'
+        eventName:
+            - 'CreateUser'
+            - 'CreateAccessKey'
+        userAgent|contains: 'S3 Browser'
+    condition: selection
+falsepositives:
+    - Valid usage of S3 Browser for IAM User and/or AccessKey creation
+level: high
+
+```

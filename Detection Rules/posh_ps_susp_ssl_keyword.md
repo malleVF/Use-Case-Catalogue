@@ -1,0 +1,46 @@
+---
+title: "Suspicious SSL Connection"
+status: "test"
+created: "2022/01/23"
+last_modified: ""
+tags: [command_and_control, t1573, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "low"
+---
+
+## Suspicious SSL Connection
+
+### Description
+
+Adversaries may employ a known encryption algorithm to conceal command and control traffic rather than relying on any inherent protections provided by a communication protocol.
+
+```yml
+title: Suspicious SSL Connection
+id: 195626f3-5f1b-4403-93b7-e6cfd4d6a078
+status: test
+description: Adversaries may employ a known encryption algorithm to conceal command and control traffic rather than relying on any inherent protections provided by a communication protocol.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1573/T1573.md#atomic-test-1---openssl-c2
+    - https://medium.com/walmartglobaltech/openssl-server-reverse-shell-from-windows-client-aee2dbfa0926
+author: frack113
+date: 2022/01/23
+tags:
+    - attack.command_and_control
+    - attack.t1573
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection:
+        ScriptBlockText|contains|all:
+            - System.Net.Security.SslStream
+            - Net.Security.RemoteCertificateValidationCallback
+            - '.AuthenticateAsClient'
+    condition: selection
+falsepositives:
+    - Legitimate administrative script
+level: low
+
+```

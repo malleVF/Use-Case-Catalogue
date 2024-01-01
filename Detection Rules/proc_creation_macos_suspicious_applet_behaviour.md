@@ -1,0 +1,44 @@
+---
+title: "Osacompile Execution By Potentially Suspicious Applet/Osascript"
+status: "experimental"
+created: "2023/04/03"
+last_modified: ""
+tags: [execution, t1059_002, detection_rule]
+logsrc_product: "macos"
+logsrc_service: ""
+level: "medium"
+---
+
+## Osacompile Execution By Potentially Suspicious Applet/Osascript
+
+### Description
+
+Detects potential suspicious applet or osascript executing "osacompile".
+
+```yml
+title: Osacompile Execution By Potentially Suspicious Applet/Osascript
+id: a753a6af-3126-426d-8bd0-26ebbcb92254
+status: experimental
+description: Detects potential suspicious applet or osascript executing "osacompile".
+references:
+    - https://redcanary.com/blog/mac-application-bundles/
+author: Sohan G (D4rkCiph3r), Red Canary (Idea)
+date: 2023/04/03
+tags:
+    - attack.execution
+    - attack.t1059.002
+logsource:
+    category: process_creation
+    product: macos
+detection:
+    selection:
+        ParentImage|endswith:
+            - '/applet'
+            - '/osascript'
+        CommandLine|contains: 'osacompile'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

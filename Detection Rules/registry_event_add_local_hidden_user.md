@@ -1,0 +1,44 @@
+---
+title: "Creation of a Local Hidden User Account by Registry"
+status: "test"
+created: "2021/05/03"
+last_modified: "2022/08/05"
+tags: [persistence, t1136_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Creation of a Local Hidden User Account by Registry
+
+### Description
+
+Sysmon registry detection of a local hidden user account.
+
+```yml
+title: Creation of a Local Hidden User Account by Registry
+id: 460479f3-80b7-42da-9c43-2cc1d54dbccd
+status: test
+description: Sysmon registry detection of a local hidden user account.
+references:
+    - https://twitter.com/SBousseaden/status/1387530414185664538
+author: Christian Burkard (Nextron Systems)
+date: 2021/05/03
+modified: 2022/08/05
+tags:
+    - attack.persistence
+    - attack.t1136.001
+logsource:
+    product: windows
+    category: registry_event
+detection:
+    selection:
+        TargetObject|contains: '\SAM\SAM\Domains\Account\Users\Names\'
+        TargetObject|endswith: '$'
+        Image|endswith: '\lsass.exe'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+
+```

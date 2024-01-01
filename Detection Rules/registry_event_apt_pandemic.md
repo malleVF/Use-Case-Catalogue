@@ -1,0 +1,50 @@
+---
+title: "Pandemic Registry Key"
+status: "test"
+created: "2017/06/01"
+last_modified: "2022/10/09"
+tags: [lateral_movement, t1105, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "critical"
+---
+
+## Pandemic Registry Key
+
+### Description
+
+Detects Pandemic Windows Implant
+
+```yml
+title: Pandemic Registry Key
+id: 47e0852a-cf81-4494-a8e6-31864f8c86ed
+status: test
+description: Detects Pandemic Windows Implant
+references:
+    - https://wikileaks.org/vault7/#Pandemic
+    - https://twitter.com/MalwareJake/status/870349480356454401
+author: Florian Roth (Nextron Systems)
+date: 2017/06/01
+modified: 2022/10/09
+tags:
+    - attack.lateral_movement
+    - attack.t1105
+logsource:
+    category: registry_event
+    product: windows
+detection:
+    selection:
+        TargetObject|contains: '\SYSTEM\CurrentControlSet\services\null\Instance'
+    condition: selection
+fields:
+    - EventID
+    - CommandLine
+    - ParentCommandLine
+    - Image
+    - User
+    - TargetObject
+falsepositives:
+    - Unknown
+level: critical
+
+```

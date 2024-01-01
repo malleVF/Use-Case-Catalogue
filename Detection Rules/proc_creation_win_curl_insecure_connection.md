@@ -1,0 +1,44 @@
+---
+title: "Insecure Transfer Via Curl.EXE"
+status: "experimental"
+created: "2023/06/30"
+last_modified: ""
+tags: [execution, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Insecure Transfer Via Curl.EXE
+
+### Description
+
+Detects execution of "curl.exe" with the "--insecure" flag.
+
+```yml
+title: Insecure Transfer Via Curl.EXE
+id: cb9cc1d1-e84e-4bdc-b7ad-c31b1b7908ec
+status: experimental
+description: Detects execution of "curl.exe" with the "--insecure" flag.
+references:
+    - https://curl.se/docs/manpage.html
+author: X__Junior (Nextron Systems)
+date: 2023/06/30
+tags:
+    - attack.execution
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_img:
+        - Image|endswith: '\curl.exe'
+        - OriginalFileName: 'curl.exe'
+    selection_cli:
+        - CommandLine|re: '\s-k\s'
+        - CommandLine|contains: '--insecure'
+    condition: all of selection_*
+falsepositives:
+    - Access to badly maintained internal or development systems
+level: medium
+
+```

@@ -1,0 +1,45 @@
+---
+title: "Relevant ClamAV Message"
+status: "stable"
+created: "2017/03/01"
+last_modified: ""
+tags: [resource_development, t1588_001, detection_rule]
+logsrc_product: "linux"
+logsrc_service: "clamav"
+level: "high"
+---
+
+## Relevant ClamAV Message
+
+### Description
+
+Detects relevant ClamAV messages
+
+```yml
+title: Relevant ClamAV Message
+id: 36aa86ca-fd9d-4456-814e-d3b1b8e1e0bb
+status: stable
+description: Detects relevant ClamAV messages
+references:
+    - https://github.com/ossec/ossec-hids/blob/1ecffb1b884607cb12e619f9ab3c04f530801083/etc/rules/clam_av_rules.xml
+author: Florian Roth (Nextron Systems)
+date: 2017/03/01
+tags:
+    - attack.resource_development
+    - attack.t1588.001
+logsource:
+    product: linux
+    service: clamav
+detection:
+    keywords:
+        - 'Trojan*FOUND'
+        - 'VirTool*FOUND'
+        - 'Webshell*FOUND'
+        - 'Rootkit*FOUND'
+        - 'Htran*FOUND'
+    condition: keywords
+falsepositives:
+    - Unknown
+level: high
+
+```

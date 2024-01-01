@@ -1,0 +1,71 @@
+---
+title: "Suspicious HH.EXE Execution"
+status: "test"
+created: "2020/04/01"
+last_modified: "2023/04/12"
+tags: [defense_evasion, execution, initial_access, t1047, t1059_001, t1059_003, t1059_005, t1059_007, t1218, t1218_001, t1218_010, t1218_011, t1566, t1566_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Suspicious HH.EXE Execution
+
+### Description
+
+Detects a suspicious execution of a Microsoft HTML Help (HH.exe)
+
+```yml
+title: Suspicious HH.EXE Execution
+id: e8a95b5e-c891-46e2-b33a-93937d3abc31
+status: test
+description: Detects a suspicious execution of a Microsoft HTML Help (HH.exe)
+references:
+    - https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/chm-badness-delivers-a-banking-trojan/
+    - https://github.com/elastic/protections-artifacts/commit/746086721fd385d9f5c6647cada1788db4aea95f#diff-27939090904026cc396b0b629c8e4314acd6f5dac40a676edbc87f4567b47eb7
+    - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/higaisa-or-winnti-apt-41-backdoors-old-and-new/
+    - https://www.zscaler.com/blogs/security-research/unintentional-leak-glimpse-attack-vectors-apt37
+author: Maxim Pavlunin
+date: 2020/04/01
+modified: 2023/04/12
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.initial_access
+    - attack.t1047
+    - attack.t1059.001
+    - attack.t1059.003
+    - attack.t1059.005
+    - attack.t1059.007
+    - attack.t1218
+    - attack.t1218.001
+    - attack.t1218.010
+    - attack.t1218.011
+    - attack.t1566
+    - attack.t1566.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - OriginalFileName: 'HH.exe'
+        - Image|endswith: '\hh.exe'
+    selection_paths:
+        CommandLine|contains:
+            - '.application'
+            - '\AppData\Local\Temp\'
+            - '\Content.Outlook\'
+            - '\Downloads\'
+            - '\Users\Public\'
+            - '\Windows\Temp\'
+            # - '\AppData\Local\Temp\Temp?_'
+            # - '\AppData\Local\Temp\Rar$'
+            # - '\AppData\Local\Temp\7z'
+            # - '\AppData\Local\Temp\wz'
+            # - '\AppData\Local\Temp\peazip-tmp'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: high
+
+```

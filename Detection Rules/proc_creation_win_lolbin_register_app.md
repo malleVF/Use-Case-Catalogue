@@ -1,0 +1,43 @@
+---
+title: "REGISTER_APP.VBS Proxy Execution"
+status: "test"
+created: "2022/08/19"
+last_modified: ""
+tags: [defense_evasion, t1218, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## REGISTER_APP.VBS Proxy Execution
+
+### Description
+
+Detects the use of a Microsoft signed script 'REGISTER_APP.VBS' to register a VSS/VDS Provider as a COM+ application.
+
+```yml
+title: REGISTER_APP.VBS Proxy Execution
+id: 1c8774a0-44d4-4db0-91f8-e792359c70bd
+status: test
+description: Detects the use of a Microsoft signed script 'REGISTER_APP.VBS' to register a VSS/VDS Provider as a COM+ application.
+references:
+    - https://twitter.com/sblmsrsn/status/1456613494783160325?s=20
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/08/19
+tags:
+    - attack.defense_evasion
+    - attack.t1218
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|all:
+            - '\register_app.vbs'
+            - '-register'
+    condition: selection
+falsepositives:
+    - Legitimate usage of the script. Always investigate what's being registered to confirm if it's benign
+level: medium
+
+```

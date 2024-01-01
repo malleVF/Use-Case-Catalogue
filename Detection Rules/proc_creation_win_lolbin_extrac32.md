@@ -1,0 +1,51 @@
+---
+title: "Suspicious Extrac32 Execution"
+status: "test"
+created: "2021/11/26"
+last_modified: "2022/08/13"
+tags: [command_and_control, t1105, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Suspicious Extrac32 Execution
+
+### Description
+
+Download or Copy file with Extrac32
+
+```yml
+title: Suspicious Extrac32 Execution
+id: aa8e035d-7be4-48d3-a944-102aec04400d
+status: test
+description: Download or Copy file with Extrac32
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Extrac32/
+author: frack113
+date: 2021/11/26
+modified: 2022/08/13
+tags:
+    - attack.command_and_control
+    - attack.t1105
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_lolbas:
+        - CommandLine|contains: extrac32.exe
+        - Image|endswith: '\extrac32.exe'
+        - OriginalFileName: 'extrac32.exe'
+    selection_archive:
+        CommandLine|contains: '.cab'
+    selection_options:
+        CommandLine|contains:
+            - /C
+            - /Y
+            - ' \\\\'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: medium
+
+```

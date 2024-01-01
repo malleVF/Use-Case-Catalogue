@@ -1,0 +1,45 @@
+---
+title: "Account Created And Deleted Within A Close Time Frame"
+status: "test"
+created: "2022/08/11"
+last_modified: "2022/08/18"
+tags: [defense_evasion, t1078, detection_rule]
+logsrc_product: "azure"
+logsrc_service: "auditlogs"
+level: "high"
+---
+
+## Account Created And Deleted Within A Close Time Frame
+
+### Description
+
+Detects when an account was created and deleted in a short period of time.
+
+```yml
+title: Account Created And Deleted Within A Close Time Frame
+id: 6f583da0-3a90-4566-a4ed-83c09fe18bbf
+status: test
+description: Detects when an account was created and deleted in a short period of time.
+references:
+    - https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/security-operations-user-accounts#short-lived-accounts
+author: Mark Morowczynski '@markmorow', MikeDuddington, '@dudders1', Tim Shelton
+date: 2022/08/11
+modified: 2022/08/18
+tags:
+    - attack.defense_evasion
+    - attack.t1078
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection:
+        properties.message:
+            - Add user
+            - Delete user
+        Status: Success
+    condition: selection
+falsepositives:
+    - Legit administrative action
+level: high
+
+```

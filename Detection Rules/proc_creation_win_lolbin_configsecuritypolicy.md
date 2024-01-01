@@ -1,0 +1,49 @@
+---
+title: "Suspicious ConfigSecurityPolicy Execution"
+status: "test"
+created: "2021/11/26"
+last_modified: "2022/05/16"
+tags: [exfiltration, t1567, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Suspicious ConfigSecurityPolicy Execution
+
+### Description
+
+Upload file, credentials or data exfiltration with Binary part of Windows Defender
+
+```yml
+title: Suspicious ConfigSecurityPolicy Execution
+id: 1f0f6176-6482-4027-b151-00071af39d7e
+status: test
+description: Upload file, credentials or data exfiltration with Binary part of Windows Defender
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/ConfigSecurityPolicy/
+author: frack113
+date: 2021/11/26
+modified: 2022/05/16
+tags:
+    - attack.exfiltration
+    - attack.t1567
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    lolbas:
+        - CommandLine|contains: ConfigSecurityPolicy.exe
+        - Image|endswith: '\ConfigSecurityPolicy.exe'
+        - OriginalFileName: 'ConfigSecurityPolicy.exe'
+    remote:
+        CommandLine|contains:
+            - 'https://'
+            - 'http://'
+            - 'ftp://'
+    condition: lolbas and remote
+falsepositives:
+    - Unknown
+level: medium
+
+```

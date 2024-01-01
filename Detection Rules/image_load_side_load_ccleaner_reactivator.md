@@ -1,0 +1,49 @@
+---
+title: "Potential CCleanerReactivator.DLL Sideloading"
+status: "experimental"
+created: "2023/07/13"
+last_modified: ""
+tags: [defense_evasion, persistence, privilege_escalation, t1574_001, t1574_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Potential CCleanerReactivator.DLL Sideloading
+
+### Description
+
+Detects potential DLL sideloading of "CCleanerReactivator.dll"
+
+```yml
+title: Potential CCleanerReactivator.DLL Sideloading
+id: 3735d5ac-d770-4da0-99ff-156b180bc600
+status: experimental
+description: Detects potential DLL sideloading of "CCleanerReactivator.dll"
+references:
+    - https://lab52.io/blog/2344-2/
+author: X__Junior
+date: 2023/07/13
+tags:
+    - attack.defense_evasion
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1574.001
+    - attack.t1574.002
+logsource:
+    category: image_load
+    product: windows
+detection:
+    selection:
+        ImageLoaded|endswith: '\CCleanerReactivator.dll'
+    filter_main_path:
+        Image|startswith:
+            - 'C:\Program Files\CCleaner\'
+            - 'C:\Program Files (x86)\CCleaner\'
+        Image|endswith: '\CCleanerReactivator.exe'
+    condition: selection and not 1 of filter_main_*
+falsepositives:
+    - False positives could occur from other custom installation paths. Apply additional filters accordingly.
+level: medium
+
+```

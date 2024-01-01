@@ -1,0 +1,45 @@
+---
+title: "Moriya Rootkit - System"
+status: "test"
+created: "2021/05/06"
+last_modified: "2022/11/29"
+tags: [persistence, privilege_escalation, t1543_003, detection_rule]
+logsrc_product: "windows"
+logsrc_service: "system"
+level: "critical"
+---
+
+## Moriya Rootkit - System
+
+### Description
+
+Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report
+
+```yml
+title: Moriya Rootkit - System
+id: 25b9c01c-350d-4b95-bed1-836d04a4f324
+status: test
+description: Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report
+references:
+    - https://securelist.com/operation-tunnelsnake-and-moriya-rootkit/101831
+author: Bhabesh Raj
+date: 2021/05/06
+modified: 2022/11/29
+tags:
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1543.003
+logsource:
+    product: windows
+    service: system
+detection:
+    selection:
+        Provider_Name: 'Service Control Manager'
+        EventID: 7045
+        ServiceName: ZzNetSvc
+    condition: selection
+falsepositives:
+    - Unknown
+level: critical
+
+```

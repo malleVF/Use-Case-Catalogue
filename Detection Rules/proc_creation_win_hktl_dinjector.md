@@ -1,0 +1,44 @@
+---
+title: "HackTool - DInjector PowerShell Cradle Execution"
+status: "test"
+created: "2021/12/07"
+last_modified: "2023/02/04"
+tags: [defense_evasion, t1055, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "critical"
+---
+
+## HackTool - DInjector PowerShell Cradle Execution
+
+### Description
+
+Detects the use of the Dinject PowerShell cradle based on the specific flags
+
+```yml
+title: HackTool - DInjector PowerShell Cradle Execution
+id: d78b5d61-187d-44b6-bf02-93486a80de5a
+status: test
+description: Detects the use of the Dinject PowerShell cradle based on the specific flags
+references:
+    - https://github.com/snovvcrash/DInjector # Original got deleted. This is a fork
+author: Florian Roth (Nextron Systems)
+date: 2021/12/07
+modified: 2023/02/04
+tags:
+    - attack.defense_evasion
+    - attack.t1055
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|all:
+            - ' /am51'
+            - ' /password'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical
+
+```

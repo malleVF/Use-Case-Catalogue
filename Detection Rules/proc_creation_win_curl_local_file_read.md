@@ -1,0 +1,43 @@
+---
+title: "Local File Read Using Curl.EXE"
+status: "experimental"
+created: "2023/07/27"
+last_modified: ""
+tags: [execution, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Local File Read Using Curl.EXE
+
+### Description
+
+Detects execution of "curl.exe" with the "file://" protocol handler in order to read local files.
+
+```yml
+title: Local File Read Using Curl.EXE
+id: aa6f6ea6-0676-40dd-b510-6e46f02d8867
+status: experimental
+description: Detects execution of "curl.exe" with the "file://" protocol handler in order to read local files.
+references:
+    - https://curl.se/docs/manpage.html
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2023/07/27
+tags:
+    - attack.execution
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_img:
+        - Image|endswith: '\curl.exe'
+        - OriginalFileName: 'curl.exe'
+    selection_cli:
+        CommandLine|contains: 'file:///'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: medium
+
+```

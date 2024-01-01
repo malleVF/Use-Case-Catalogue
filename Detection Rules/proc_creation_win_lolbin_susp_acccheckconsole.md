@@ -1,0 +1,47 @@
+---
+title: "Suspicious LOLBIN AccCheckConsole"
+status: "test"
+created: "2022/01/06"
+last_modified: ""
+tags: [execution, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Suspicious LOLBIN AccCheckConsole
+
+### Description
+
+Detects suspicious LOLBIN AccCheckConsole execution with parameters as used to load an arbitrary DLL
+
+```yml
+title: Suspicious LOLBIN AccCheckConsole
+id: 0f6da907-5854-4be6-859a-e9958747b0aa
+status: test
+description: Detects suspicious LOLBIN AccCheckConsole execution with parameters as used to load an arbitrary DLL
+references:
+    - https://gist.github.com/bohops/2444129419c8acf837aedda5f0e7f340
+    - https://twitter.com/bohops/status/1477717351017680899?s=12
+    - https://lolbas-project.github.io/lolbas/OtherMSBinaries/AccCheckConsole/
+author: Florian Roth (Nextron Systems)
+date: 2022/01/06
+tags:
+    - attack.execution
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\AccCheckConsole.exe'
+        - OriginalFileName: 'AccCheckConsole.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - ' -window '
+            - '.dll'
+    condition: all of selection*
+falsepositives:
+    - Legitimate use of the UI Accessibility Checker
+level: high
+
+```

@@ -1,0 +1,53 @@
+---
+title: "Enumerate Credentials from Windows Credential Manager With PowerShell"
+status: "test"
+created: "2021/12/20"
+last_modified: "2022/12/25"
+tags: [credential_access, t1555, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Enumerate Credentials from Windows Credential Manager With PowerShell
+
+### Description
+
+Adversaries may search for common password storage locations to obtain user credentials.
+Passwords are stored in several places on a system, depending on the operating system or application holding the credentials.
+
+
+```yml
+title: Enumerate Credentials from Windows Credential Manager With PowerShell
+id: 603c6630-5225-49c1-8047-26c964553e0e
+status: test
+description: |
+    Adversaries may search for common password storage locations to obtain user credentials.
+    Passwords are stored in several places on a system, depending on the operating system or application holding the credentials.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1555/T1555.md
+author: frack113
+date: 2021/12/20
+modified: 2022/12/25
+tags:
+    - attack.credential_access
+    - attack.t1555
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection_cmd:
+        ScriptBlockText|contains|all:
+            - vaultcmd
+            - '/listcreds:'
+    selection_option:
+        ScriptBlockText|contains:
+            - 'Windows Credentials'
+            - 'Web Credentials'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: medium
+
+```

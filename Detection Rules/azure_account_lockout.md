@@ -1,0 +1,42 @@
+---
+title: "Account Lockout"
+status: "test"
+created: "2021/10/10"
+last_modified: "2022/12/25"
+tags: [credential_access, t1110, detection_rule]
+logsrc_product: "azure"
+logsrc_service: "signinlogs"
+level: "medium"
+---
+
+## Account Lockout
+
+### Description
+
+Identifies user account which has been locked because the user tried to sign in too many times with an incorrect user ID or password.
+
+```yml
+title: Account Lockout
+id: 2b7d6fc0-71ac-4cf7-8ed1-b5788ee5257a
+status: test
+description: Identifies user account which has been locked because the user tried to sign in too many times with an incorrect user ID or password.
+references:
+    - https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/security-operations-privileged-accounts
+author: AlertIQ
+date: 2021/10/10
+modified: 2022/12/25
+tags:
+    - attack.credential_access
+    - attack.t1110
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        ResultType: 50053
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

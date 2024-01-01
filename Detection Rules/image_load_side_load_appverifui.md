@@ -1,0 +1,51 @@
+---
+title: "Potential appverifUI.DLL Sideloading"
+status: "experimental"
+created: "2023/06/20"
+last_modified: ""
+tags: [defense_evasion, privilege_escalation, t1574_001, t1574_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Potential appverifUI.DLL Sideloading
+
+### Description
+
+Detects potential DLL sideloading of "appverifUI.dll"
+
+```yml
+title: Potential appverifUI.DLL Sideloading
+id: ee6cea48-c5b6-4304-a332-10fc6446f484
+status: experimental
+description: Detects potential DLL sideloading of "appverifUI.dll"
+references:
+    - https://fatrodzianko.com/2020/02/15/dll-side-loading-appverif-exe/
+author: X__Junior (Nextron Systems)
+date: 2023/06/20
+tags:
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1574.001
+    - attack.t1574.002
+logsource:
+    category: image_load
+    product: windows
+detection:
+    selection:
+        ImageLoaded|endswith: '\appverifUI.dll'
+    filter_main_legit_path:
+        Image:
+            - 'C:\Windows\SysWOW64\appverif.exe'
+            - 'C:\Windows\System32\appverif.exe'
+        ImageLoaded|startswith:
+            - 'C:\Windows\System32\'
+            - 'C:\Windows\SysWOW64\'
+            - 'C:\Windows\WinSxS\'
+    condition: selection and not 1 of filter_main_*
+falsepositives:
+    - Unlikely
+level: high
+
+```

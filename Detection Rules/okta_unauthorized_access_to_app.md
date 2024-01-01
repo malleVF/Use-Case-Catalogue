@@ -1,0 +1,42 @@
+---
+title: "Okta Unauthorized Access to App"
+status: "test"
+created: "2021/09/12"
+last_modified: "2022/10/09"
+tags: [impact, detection_rule]
+logsrc_product: "okta"
+logsrc_service: "okta"
+level: "medium"
+---
+
+## Okta Unauthorized Access to App
+
+### Description
+
+Detects when unauthorized access to app occurs.
+
+```yml
+title: Okta Unauthorized Access to App
+id: 6cc2b61b-d97e-42ef-a9dd-8aa8dc951657
+status: test
+description: Detects when unauthorized access to app occurs.
+references:
+    - https://developer.okta.com/docs/reference/api/system-log/
+    - https://developer.okta.com/docs/reference/api/event-types/
+author: Austin Songer @austinsonger
+date: 2021/09/12
+modified: 2022/10/09
+tags:
+    - attack.impact
+logsource:
+    product: okta
+    service: okta
+detection:
+    selection:
+        displaymessage: User attempted unauthorized access to app
+    condition: selection
+falsepositives:
+    - User might of believe that they had access.
+level: medium
+
+```

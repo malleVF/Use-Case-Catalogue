@@ -1,0 +1,45 @@
+---
+title: "Potential Mfdetours.DLL Sideloading"
+status: "experimental"
+created: "2023/08/03"
+last_modified: ""
+tags: [defense_evasion, privilege_escalation, t1574_001, t1574_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Potential Mfdetours.DLL Sideloading
+
+### Description
+
+Detects potential DLL sideloading of "mfdetours.dll". While using "mftrace.exe" it can be abused to attach to an arbitrary process and force load any DLL named "mfdetours.dll" from the current directory of execution.
+
+```yml
+title: Potential Mfdetours.DLL Sideloading
+id: d2605a99-2218-4894-8fd3-2afb7946514d
+status: experimental
+description: Detects potential DLL sideloading of "mfdetours.dll". While using "mftrace.exe" it can be abused to attach to an arbitrary process and force load any DLL named "mfdetours.dll" from the current directory of execution.
+references:
+    - Internal Research
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2023/08/03
+tags:
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1574.001
+    - attack.t1574.002
+logsource:
+    category: image_load
+    product: windows
+detection:
+    selection:
+        ImageLoaded|endswith: '\mfdetours.dll'
+    filter_main_legit_path:
+        ImageLoaded|contains: ':\Program Files (x86)\Windows Kits\10\bin\'
+    condition: selection and not 1 of filter_main_*
+falsepositives:
+    - Unlikely
+level: medium
+
+```

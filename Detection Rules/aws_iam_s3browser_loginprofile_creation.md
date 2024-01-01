@@ -1,0 +1,47 @@
+---
+title: "AWS IAM S3Browser LoginProfile Creation"
+status: "experimental"
+created: "2023/05/17"
+last_modified: ""
+tags: [execution, persistence, t1059_009, t1078_004, detection_rule]
+logsrc_product: "aws"
+logsrc_service: "cloudtrail"
+level: "high"
+---
+
+## AWS IAM S3Browser LoginProfile Creation
+
+### Description
+
+Detects S3 Browser utility performing reconnaissance looking for existing IAM Users without a LoginProfile defined then (when found) creating a LoginProfile.
+
+```yml
+title: AWS IAM S3Browser LoginProfile Creation
+id: db014773-b1d3-46bd-ba26-133337c0ffee
+status: experimental
+description: Detects S3 Browser utility performing reconnaissance looking for existing IAM Users without a LoginProfile defined then (when found) creating a LoginProfile.
+references:
+    - https://permiso.io/blog/s/unmasking-guivil-new-cloud-threat-actor
+author: daniel.bohannon@permiso.io (@danielhbohannon)
+date: 2023/05/17
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.t1059.009
+    - attack.t1078.004
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource: 'iam.amazonaws.com'
+        eventName:
+            - 'GetLoginProfile'
+            - 'CreateLoginProfile'
+        userAgent|contains: 'S3 Browser'
+    condition: selection
+falsepositives:
+    - Valid usage of S3 Browser for IAM LoginProfile listing and/or creation
+level: high
+
+```

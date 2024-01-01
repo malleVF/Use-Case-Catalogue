@@ -1,0 +1,50 @@
+---
+title: "PowerShell Core DLL Loaded Via Office Application"
+status: "experimental"
+created: "2023/06/01"
+last_modified: ""
+tags: [defense_evasion, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## PowerShell Core DLL Loaded Via Office Application
+
+### Description
+
+Detects PowerShell core DLL being loaded by an Office Product
+
+```yml
+title: PowerShell Core DLL Loaded Via Office Application
+id: bb2ba6fb-95d4-4a25-89fc-30bb736c021a
+status: experimental
+description: Detects PowerShell core DLL being loaded by an Office Product
+references:
+    - Internal Research
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2023/06/01
+tags:
+    - attack.defense_evasion
+logsource:
+    category: image_load
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\excel.exe'
+            - '\mspub.exe'
+            - '\outlook.exe'
+            - '\onenote.exe'
+            - '\onenoteim.exe' # Just in case
+            - '\powerpnt.exe'
+            - '\winword.exe'
+        ImageLoaded|contains:
+            - '\System.Management.Automation.Dll'
+            - '\System.Management.Automation.ni.Dll'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

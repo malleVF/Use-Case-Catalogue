@@ -1,0 +1,54 @@
+---
+title: "Potential Configuration And Service Reconnaissance Via Reg.EXE"
+status: "test"
+created: "2019/10/21"
+last_modified: "2023/02/05"
+tags: [discovery, t1012, t1007, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Potential Configuration And Service Reconnaissance Via Reg.EXE
+
+### Description
+
+Detects the usage of "reg.exe" in order to query reconnaissance information from the registry. Adversaries may interact with the Windows registry to gather information about credentials, the system, configuration, and installed software.
+
+```yml
+title: Potential Configuration And Service Reconnaissance Via Reg.EXE
+id: 970007b7-ce32-49d0-a4a4-fbef016950bd
+status: test
+description: Detects the usage of "reg.exe" in order to query reconnaissance information from the registry. Adversaries may interact with the Windows registry to gather information about credentials, the system, configuration, and installed software.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1012/T1012.md
+author: Timur Zinniatullin, oscd.community
+date: 2019/10/21
+modified: 2023/02/05
+tags:
+    - attack.discovery
+    - attack.t1012
+    - attack.t1007
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\reg.exe'
+        - OriginalFileName: 'reg.exe'
+    selection_flag:
+        CommandLine|contains: 'query'
+    selection_key:
+        CommandLine|contains:
+            - 'currentVersion\windows'
+            - 'winlogon\'
+            - 'currentVersion\shellServiceObjectDelayLoad'
+            - 'currentVersion\run' # Also covers the strings "RunOnce", "RunOnceEx" and "runServicesOnce"
+            - 'currentVersion\policies\explorer\run'
+            - 'currentcontrolset\services'
+    condition: all of selection_*
+falsepositives:
+    - Discord
+level: medium
+
+```

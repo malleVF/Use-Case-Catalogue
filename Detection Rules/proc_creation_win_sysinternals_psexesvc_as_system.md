@@ -1,0 +1,47 @@
+---
+title: "PsExec Service Child Process Execution as LOCAL SYSTEM"
+status: "experimental"
+created: "2022/07/21"
+last_modified: "2023/02/28"
+tags: [execution, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## PsExec Service Child Process Execution as LOCAL SYSTEM
+
+### Description
+
+Detects suspicious launch of the PSEXESVC service on this system and a sub process run as LOCAL_SYSTEM (-s), which means that someone remotely started a command on this system running it with highest privileges and not only the privileges of the login user account (e.g. the administrator account)
+
+```yml
+title: PsExec Service Child Process Execution as LOCAL SYSTEM
+id: 7c0dcd3d-acf8-4f71-9570-f448b0034f94
+related:
+    - id: fa91cc36-24c9-41ce-b3c8-3bbc3f2f67ba
+      type: similar
+status: experimental
+description: Detects suspicious launch of the PSEXESVC service on this system and a sub process run as LOCAL_SYSTEM (-s), which means that someone remotely started a command on this system running it with highest privileges and not only the privileges of the login user account (e.g. the administrator account)
+references:
+    - https://docs.microsoft.com/en-us/sysinternals/downloads/psexec
+author: Florian Roth (Nextron Systems)
+date: 2022/07/21
+modified: 2023/02/28
+tags:
+    - attack.execution
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        ParentImage: 'C:\Windows\PSEXESVC.exe'
+        User|contains: # covers many language settings
+            - 'AUTHORI'
+            - 'AUTORI'
+    condition: selection
+falsepositives:
+    - Users that debug Microsoft Intune issues using the commands mentioned in the official documentation; see https://learn.microsoft.com/en-us/mem/intune/apps/intune-management-extension
+level: high
+
+```

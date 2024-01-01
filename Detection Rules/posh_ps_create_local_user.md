@@ -1,0 +1,45 @@
+---
+title: "PowerShell Create Local User"
+status: "test"
+created: "2020/04/11"
+last_modified: "2022/12/25"
+tags: [execution, t1059_001, persistence, t1136_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## PowerShell Create Local User
+
+### Description
+
+Detects creation of a local user via PowerShell
+
+```yml
+title: PowerShell Create Local User
+id: 243de76f-4725-4f2e-8225-a8a69b15ad61
+status: test
+description: Detects creation of a local user via PowerShell
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1136.001/T1136.001.md
+author: '@ROxPinTeddy'
+date: 2020/04/11
+modified: 2022/12/25
+tags:
+    - attack.execution
+    - attack.t1059.001
+    - attack.persistence
+    - attack.t1136.001
+logsource:
+    product: windows
+    category: ps_script
+    definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+    selection:
+        ScriptBlockText|contains: 'New-LocalUser'
+    condition: selection
+falsepositives:
+    - Legitimate user creation
+level: medium
+
+```

@@ -1,0 +1,44 @@
+---
+title: "PUA - DIT Snapshot Viewer"
+status: "test"
+created: "2020/07/04"
+last_modified: "2023/02/21"
+tags: [credential_access, t1003_003, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## PUA - DIT Snapshot Viewer
+
+### Description
+
+Detects the use of Ditsnap tool, an inspection tool for Active Directory database, ntds.dit.
+
+```yml
+title: PUA - DIT Snapshot Viewer
+id: d3b70aad-097e-409c-9df2-450f80dc476b
+status: test
+description: Detects the use of Ditsnap tool, an inspection tool for Active Directory database, ntds.dit.
+references:
+    - https://thedfirreport.com/2020/06/21/snatch-ransomware/
+    - https://web.archive.org/web/20201124182207/https://github.com/yosqueoy/ditsnap
+author: Furkan Caliskan (@caliskanfurkan_)
+date: 2020/07/04
+modified: 2023/02/21
+tags:
+    - attack.credential_access
+    - attack.t1003.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith: '\ditsnap.exe'
+        - CommandLine|contains: 'ditsnap.exe'
+    condition: selection
+falsepositives:
+    - Legitimate admin usage
+level: high
+
+```

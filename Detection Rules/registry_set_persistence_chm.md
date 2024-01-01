@@ -1,0 +1,44 @@
+---
+title: "Potential Persistence Via CHM Helper DLL"
+status: "experimental"
+created: "2022/07/21"
+last_modified: "2023/08/17"
+tags: [persistence, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Potential Persistence Via CHM Helper DLL
+
+### Description
+
+Detects when an attacker modifies the registry key "HtmlHelp Author" to achieve persistence
+
+```yml
+title: Potential Persistence Via CHM Helper DLL
+id: 976dd1f2-a484-45ec-aa1d-0e87e882262b
+status: experimental
+description: Detects when an attacker modifies the registry key "HtmlHelp Author" to achieve persistence
+references:
+    - https://persistence-info.github.io/Data/htmlhelpauthor.html
+    - https://www.hexacorn.com/blog/2018/04/22/beyond-good-ol-run-key-part-76/
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2022/07/21
+modified: 2023/08/17
+tags:
+    - attack.persistence
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection:
+        TargetObject|contains:
+            - '\Software\Microsoft\HtmlHelp Author\Location'
+            - '\Software\WOW6432Node\Microsoft\HtmlHelp Author\Location'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+
+```

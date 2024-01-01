@@ -1,0 +1,44 @@
+---
+title: "Visual Studio Code Tunnel Remote File Creation"
+status: "experimental"
+created: "2023/10/25"
+last_modified: ""
+tags: [command_and_control, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Visual Studio Code Tunnel Remote File Creation
+
+### Description
+
+Detects the creation of file by the "node.exe" process in the ".vscode-server" directory. Could be a sign of remote file creation via VsCode tunnel feature
+
+
+```yml
+title: Visual Studio Code Tunnel Remote File Creation
+id: 56e05d41-ce99-4ecd-912d-93f019ee0b71
+status: experimental
+description: |
+    Detects the creation of file by the "node.exe" process in the ".vscode-server" directory. Could be a sign of remote file creation via VsCode tunnel feature
+references:
+    - Internal Research
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2023/10/25
+tags:
+    - attack.command_and_control
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        Image|contains: '\servers\Stable-'
+        Image|endswith: '\server\node.exe'
+        TargetFilename|contains: '\.vscode-server\data\User\History\'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+```

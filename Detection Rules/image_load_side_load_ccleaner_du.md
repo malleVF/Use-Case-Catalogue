@@ -1,0 +1,51 @@
+---
+title: "Potential CCleanerDU.DLL Sideloading"
+status: "experimental"
+created: "2023/07/13"
+last_modified: ""
+tags: [defense_evasion, persistence, privilege_escalation, t1574_001, t1574_002, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Potential CCleanerDU.DLL Sideloading
+
+### Description
+
+Detects potential DLL sideloading of "CCleanerDU.dll"
+
+```yml
+title: Potential CCleanerDU.DLL Sideloading
+id: 1fbc0671-5596-4e17-8682-f020a0b995dc
+status: experimental
+description: Detects potential DLL sideloading of "CCleanerDU.dll"
+references:
+    - https://lab52.io/blog/2344-2/
+author: X__Junior (Nextron Systems)
+date: 2023/07/13
+tags:
+    - attack.defense_evasion
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1574.001
+    - attack.t1574.002
+logsource:
+    category: image_load
+    product: windows
+detection:
+    selection:
+        ImageLoaded|endswith: '\CCleanerDU.dll'
+    filter_main_path:
+        Image|startswith:
+            - 'C:\Program Files\CCleaner\'
+            - 'C:\Program Files (x86)\CCleaner\'
+        Image|endswith:
+            - '\CCleaner.exe'
+            - '\CCleaner64.exe'
+    condition: selection and not 1 of filter_main_*
+falsepositives:
+    - False positives could occur from other custom installation paths. Apply additional filters accordingly.
+level: medium
+
+```

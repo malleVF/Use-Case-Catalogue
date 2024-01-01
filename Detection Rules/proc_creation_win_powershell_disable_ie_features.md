@@ -1,0 +1,52 @@
+---
+title: "Disabled IE Security Features"
+status: "test"
+created: "2020/06/19"
+last_modified: "2021/11/27"
+tags: [defense_evasion, t1562_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Disabled IE Security Features
+
+### Description
+
+Detects command lines that indicate unwanted modifications to registry keys that disable important Internet Explorer security features
+
+```yml
+title: Disabled IE Security Features
+id: fb50eb7a-5ab1-43ae-bcc9-091818cb8424
+status: test
+description: Detects command lines that indicate unwanted modifications to registry keys that disable important Internet Explorer security features
+references:
+    - https://unit42.paloaltonetworks.com/operation-ke3chang-resurfaces-with-new-tidepool-malware/
+author: Florian Roth (Nextron Systems)
+date: 2020/06/19
+modified: 2021/11/27
+tags:
+    - attack.defense_evasion
+    - attack.t1562.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection1:
+        CommandLine|contains|all:
+            - ' -name IEHarden '
+            - ' -value 0 '
+    selection2:
+        CommandLine|contains|all:
+            - ' -name DEPOff '
+            - ' -value 1 '
+    selection3:
+        CommandLine|contains|all:
+            - ' -name DisableFirstRunCustomize '
+            - ' -value 2 '
+    condition: 1 of selection*
+falsepositives:
+    - Unknown
+level: high
+
+```

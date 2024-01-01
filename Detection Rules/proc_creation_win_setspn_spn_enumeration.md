@@ -1,0 +1,51 @@
+---
+title: "Potential SPN Enumeration Via Setspn.EXE"
+status: "test"
+created: "2018/11/14"
+last_modified: "2023/10/23"
+tags: [credential_access, t1558_003, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## Potential SPN Enumeration Via Setspn.EXE
+
+### Description
+
+Detects service principal name (SPN) enumeration used for Kerberoasting
+
+```yml
+title: Potential SPN Enumeration Via Setspn.EXE
+id: 1eeed653-dbc8-4187-ad0c-eeebb20e6599
+status: test
+description: Detects service principal name (SPN) enumeration used for Kerberoasting
+references:
+    - https://web.archive.org/web/20200329173843/https://p16.praetorian.com/blog/how-to-use-kerberoasting-t1208-for-privilege-escalation
+    - https://www.praetorian.com/blog/how-to-use-kerberoasting-t1208-for-privilege-escalation/?edition=2019
+author: Markus Neis, keepwatch
+date: 2018/11/14
+modified: 2023/10/23
+tags:
+    - attack.credential_access
+    - attack.t1558.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_pe:
+        - Image|endswith: '\setspn.exe'
+        - OriginalFileName: 'setspn.exe'
+        - Description|contains|all:
+              - 'Query or reset the computer'
+              - 'SPN attribute'
+    selection_cli:
+        CommandLine|contains:
+            - ' -q '
+            - ' /q '
+    condition: all of selection_*
+falsepositives:
+    - Administration activity
+level: medium
+
+```

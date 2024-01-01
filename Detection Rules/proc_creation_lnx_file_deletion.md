@@ -1,0 +1,45 @@
+---
+title: "File Deletion"
+status: "stable"
+created: "2020/10/07"
+last_modified: "2022/09/15"
+tags: [defense_evasion, t1070_004, detection_rule]
+logsrc_product: "linux"
+logsrc_service: ""
+level: "informational"
+---
+
+## File Deletion
+
+### Description
+
+Detects file deletion using "rm", "shred" or "unlink" commands which are used often by adversaries to delete files left behind by the actions of their intrusion activity
+
+```yml
+title: File Deletion
+id: 30aed7b6-d2c1-4eaf-9382-b6bc43e50c57
+status: stable
+description: Detects file deletion using "rm", "shred" or "unlink" commands which are used often by adversaries to delete files left behind by the actions of their intrusion activity
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1070.004/T1070.004.md
+author: Ömer Günal, oscd.community
+date: 2020/10/07
+modified: 2022/09/15
+tags:
+    - attack.defense_evasion
+    - attack.t1070.004
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '/rm'     # covers /rmdir as well
+            - '/shred'
+            - '/unlink'
+    condition: selection
+falsepositives:
+    - Legitimate administration activities
+level: informational
+
+```

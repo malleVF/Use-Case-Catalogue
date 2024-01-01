@@ -1,0 +1,43 @@
+---
+title: "CrashControl CrashDump Disabled"
+status: "experimental"
+created: "2022/02/24"
+last_modified: "2023/08/17"
+tags: [t1564, t1112, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "medium"
+---
+
+## CrashControl CrashDump Disabled
+
+### Description
+
+Detects disabling the CrashDump per registry (as used by HermeticWiper)
+
+```yml
+title: CrashControl CrashDump Disabled
+id: 2ff692c2-4594-41ec-8fcb-46587de769e0
+status: experimental
+description: Detects disabling the CrashDump per registry (as used by HermeticWiper)
+references:
+    - https://www.sentinelone.com/labs/hermetic-wiper-ukraine-under-attack/
+author: Tobias Michalski (Nextron Systems)
+date: 2022/02/24
+modified: 2023/08/17
+tags:
+    - attack.t1564
+    - attack.t1112
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 'SYSTEM\CurrentControlSet\Control\CrashControl'
+        Details: 'DWORD (0x00000000)'
+    condition: selection
+falsepositives:
+    - Legitimate disabling of crashdumps
+level: medium
+
+```

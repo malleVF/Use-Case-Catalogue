@@ -1,0 +1,52 @@
+---
+title: "HackTool - Stracciatella Execution"
+status: "experimental"
+created: "2023/04/17"
+last_modified: ""
+tags: [execution, defense_evasion, t1059, t1562_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## HackTool - Stracciatella Execution
+
+### Description
+
+Detects Stracciatella which executes a Powershell runspace from within C# (aka SharpPick technique) with AMSI, ETW and Script Block Logging disabled based on PE metadata characteristics.
+
+```yml
+title: HackTool - Stracciatella Execution
+id: 7a4d9232-92fc-404d-8ce1-4c92e7caf539
+status: experimental
+description: Detects Stracciatella which executes a Powershell runspace from within C# (aka SharpPick technique) with AMSI, ETW and Script Block Logging disabled based on PE metadata characteristics.
+references:
+    - https://github.com/mgeeky/Stracciatella
+author: pH-T (Nextron Systems)
+date: 2023/04/17
+tags:
+    - attack.execution
+    - attack.defense_evasion
+    - attack.t1059
+    - attack.t1562.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith: '\Stracciatella.exe'
+        - OriginalFileName: 'Stracciatella.exe'
+        - Description: 'Stracciatella'
+        - Hashes|contains:
+              - 'SHA256=9d25e61ec1527e2a69d7c2a4e3fe2fe15890710c198a66a9f25d99fdf6c7b956'
+              - 'SHA256=fd16609bd9830c63b9413671678bb159b89c357d21942ddbb6b93add808d121a'
+        - sha256:
+              - '9d25e61ec1527e2a69d7c2a4e3fe2fe15890710c198a66a9f25d99fdf6c7b956'
+              - 'fd16609bd9830c63b9413671678bb159b89c357d21942ddbb6b93add808d121a'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: high
+
+
+```

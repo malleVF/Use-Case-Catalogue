@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "type": "graph",
+      "ctime": 1704139373074,
+      "title": "Graph",
+      "options": {
+        "collapse-filter": false,
+        "search": "",
+        "showTags": true,
+        "showAttachments": false,
+        "hideUnresolved": true,
+        "showOrphans": false,
+        "collapse-color-groups": false,
+        "colorGroups": [
+          {
+            "query": "path:\"atomics\"  ",
+            "color": {
+              "a": 1,
+              "rgb": 15140872
+            }
+          },
+          {
+            "query": "path:\"Use Cases\"  ",
+            "color": {
+              "a": 1,
+              "rgb": 1345264
+            }
+          },
+          {
+            "query": "path:\"Detection Rules\"  ",
+            "color": {
+              "a": 1,
+              "rgb": 16182793
+            }
+          }
+        ],
+        "collapse-display": true,
+        "showArrow": false,
+        "textFadeMultiplier": 0,
+        "nodeSizeMultiplier": 1,
+        "lineSizeMultiplier": 1,
+        "collapse-forces": true,
+        "centerStrength": 0.518713248970312,
+        "repelStrength": 10,
+        "linkStrength": 1,
+        "linkDistance": 250,
+        "scale": 0.08317427835927654,
+        "close": false
+      }
+    }
+  ]
+}

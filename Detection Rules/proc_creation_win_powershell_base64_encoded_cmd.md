@@ -1,0 +1,64 @@
+---
+title: "Suspicious Encoded PowerShell Command Line"
+status: "test"
+created: "2018/09/03"
+last_modified: "2023/04/06"
+tags: [execution, t1059_001, detection_rule]
+logsrc_product: "windows"
+logsrc_service: ""
+level: "high"
+---
+
+## Suspicious Encoded PowerShell Command Line
+
+### Description
+
+Detects suspicious powershell process starts with base64 encoded commands (e.g. Emotet)
+
+```yml
+title: Suspicious Encoded PowerShell Command Line
+id: ca2092a1-c273-4878-9b4b-0d60115bf5ea
+status: test
+description: Detects suspicious powershell process starts with base64 encoded commands (e.g. Emotet)
+references:
+    - https://app.any.run/tasks/6217d77d-3189-4db2-a957-8ab239f3e01e
+author: Florian Roth (Nextron Systems), Markus Neis, Jonhnathan Ribeiro, Daniil Yugoslavskiy, Anton Kutepov, oscd.community
+date: 2018/09/03
+modified: 2023/04/06
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\powershell.exe'
+              - '\pwsh.exe'
+        - OriginalFileName:
+              - 'PowerShell.EXE'
+              - 'pwsh.dll'
+    selection_cli_enc:
+        CommandLine|contains: ' -e' # covers -en and -enc
+    selection_cli_content:
+        CommandLine|contains:
+            - ' JAB'
+            - ' SUVYI'
+            - ' SQBFAFgA'
+            - ' aQBlAHgA'
+            - ' aWV4I'
+            - ' IAA'
+            - ' IAB'
+            - ' UwB'
+            - ' cwB'
+    selection_standalone:
+        CommandLine|contains:
+            - '.exe -ENCOD '
+            - ' BA^J e-' # Reversed
+    filter_optional_remote_signed:
+        CommandLine|contains: ' -ExecutionPolicy remotesigned '
+    condition: selection_img and (all of selection_cli_* or selection_standalone) and not 1 of filter_optional_*
+level: high
+
+```
