@@ -4,83 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "6d00e43eda978b21",
+        "id": "10b303972a0bc709",
         "type": "tabs",
         "children": [
           {
-            "id": "83c3f038850b8963",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Detection Rules/proc_creation_macos_susp_execution_macos_script_editor.md",
-                "mode": "preview",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "06cdfe9760be5466",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Use Cases/T1040 - Network Sniffing.md",
-                "mode": "preview",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "a74da8a83f43b134",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Use Cases/T1071.001 - Application Layer Protocol- Web Protocols.md",
-                "mode": "preview",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "6a4a71c6ad874f53",
+            "id": "852b402ed14a5588",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "README.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "4bbfd3fae9c38279",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Detection Rules.md",
                 "mode": "preview",
                 "source": true
               }
             }
-          },
-          {
-            "id": "8e48432c708f1de4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Perl Scripts.md",
-                "mode": "source",
-                "source": true
-              }
-            }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -146,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Perl Scripts.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Perl Scripts.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -186,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Perl Scripts.md"
+                "file": "README.md"
               }
             }
           }
@@ -207,12 +146,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8e48432c708f1de4",
+  "active": "852b402ed14a5588",
   "lastOpenFiles": [
-    "Perl Scripts.md",
+    "Welcome.md",
     "README.md",
-    "Use Cases/T1071.001 - Application Layer Protocol- Web Protocols.md",
+    "Untitled.md",
     "Detection Rules.md",
+    "Perl Scripts.md",
+    "Use Cases/T1071.001 - Application Layer Protocol- Web Protocols.md",
     "Use Cases/T1056.001 - Input Capture- Keylogging.md",
     "Detection Rules/proxy_ua_malware.md",
     "Detection Rules/proc_creation_win_wuauclt_dll_loading.md",
@@ -220,7 +161,6 @@
     "Use Cases/T1596.003 - Search Open Technical Databases- Digital Certificates.md",
     "Use Cases/T1040 - Network Sniffing.md",
     "atomic_test.md",
-    "Untitled.md",
     "Detection Rules/proc_creation_macos_susp_execution_macos_script_editor.md",
     "Detection Rules/proc_creation_macos_jxa_in_memory_execution.md",
     "Use Cases/T1059.002 - Command and Scripting Interpreter- AppleScript.md",
@@ -234,7 +174,6 @@
     "Use Cases/T1007 - System Service Discovery.md",
     "Use Cases/T1005 - Data from Local System.md",
     "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
-    "Use Cases/T1003.003 - OS Credential Dumping- NTDS.md",
     "LICENSE",
     "atomics/T1654/T1654.yaml",
     "atomics/T1654",
