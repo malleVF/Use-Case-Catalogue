@@ -1,2 +1,0 @@
-find /vmfs/volumes/ -type f -name "*.vmdk"
-exit

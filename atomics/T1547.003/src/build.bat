@@ -1,1 +1,0 @@
-cl.exe /W0 /D_USRDLL /D_WINDLL AtomicTest.c AtomicTest.def /MT /link /DLL /OUT:AtomicTest.dll

@@ -1,1 +1,0 @@
-cl.exe /nologo /Ox /MT /W0 /GS- /DNDEBUG /Tp InjectView.c /link /OUT:InjectView.exe /SUBSYSTEM:CONSOLE

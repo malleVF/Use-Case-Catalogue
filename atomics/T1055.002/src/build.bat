@@ -1,1 +1,0 @@
-cl.exe /nologo /Ox /MT /W0 /GS- /DNDEBUG /TcRedInjection.c /link /OUT:RedInjection.exe.exe /SUBSYSTEM:CONSOLE /MACHINE:x64

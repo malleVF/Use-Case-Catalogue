@@ -1,4 +1,0 @@
-WndProc
-FindExport
-xGetProcAddress
-xstrcmp
