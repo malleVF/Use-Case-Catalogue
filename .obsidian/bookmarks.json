@@ -53,6 +53,11 @@
         "scale": 0.11660891579457468,
         "close": true
       }
+    },
+    {
+      "type": "file",
+      "ctime": 1705089782234,
+      "path": "README.md"
     }
   ]
 }

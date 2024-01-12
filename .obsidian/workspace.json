@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
+                "file": "README.md",
                 "mode": "preview",
                 "source": true
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:T1003_007",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md"
+                "file": "README.md"
               }
             }
           }
@@ -138,7 +138,6 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "homepage:Open homepage": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -149,32 +148,32 @@
   },
   "active": "ff42c39df1d6200c",
   "lastOpenFiles": [
-    "Detection Rules.md",
-    "Detection Rules/microsoft365_unusual_volume_of_file_deletion.md",
-    "README.md",
-    "Use Cases/T1098 - Account Manipulation.md",
-    "Use Cases/T1071 - Application Layer Protocol.md",
-    "Use Cases/T1070 - Indicator Removal.md",
-    "Use Cases/T1069.003 - Permission Groups Discovery- Cloud Groups.md",
-    "Use Cases/T1055.013 - Process Injection- Process Doppelg„nging.md",
-    "Use Cases/T1055.008 - Process Injection- Ptrace System Calls.md",
-    "Use Cases/T1037 - Boot or Logon Initialization Scripts.md",
+    "Use Cases/T1027.006 - Obfuscated Files or Information- HTML Smuggling.md",
     "Use Cases/T1021.007 - Remote Services- Cloud Services.md",
+    "Use Cases/T1021.006 - Remote Services- Windows Remote Management.md",
+    "Use Cases/T1033 - System Owner_User Discovery.md",
+    "README.md",
+    "Use Cases/T1021.005 - Remote Services- VNC.md",
+    "Use Cases/T1027.007 - Obfuscated Files or Information- Dynamic API Resolution.md",
+    "Use Cases/T1021.004 - Remote Services- SSH.md",
+    "Use Cases/T1027.005 - Obfuscated Files or Information- Indicator Removal from Tools.md",
+    "Use Cases/T1016 - System Network Configuration Discovery.md",
+    "Use Cases/T1008 - Fallback Channels.md",
+    "Use Cases/T1003.002 - OS Credential Dumping- Security Account Manager.md",
+    "Use Cases/T1003.008 - OS Credential Dumping- _etc_passwd and _etc_shadow.md",
     "Use Cases/T1021 - Remote Services.md",
-    "Use Cases/T1012 - Query Registry.md",
-    "Detection Rules/aws_sts_getsessiontoken_misuse.md",
-    "Use Cases/T1027.002 - Obfuscated Files or Information- Software Packing.md",
-    "Use Cases/T1070.005 - Indicator Removal- Network Share Connection Removal.md",
-    "Use Cases/T1070.004 - Indicator Removal- File Deletion.md",
-    "Testing Runbooks/T1037.004 - Boot or Logon Initialization Scripts- Rc.common.md",
-    "Testing Runbooks/T1574.012 - Hijack Execution Flow- COR_PROFILER.md",
-    "Testing Runbooks/T1574.011 - Hijack Execution Flow- Services Registry Permissions Weakness.md",
-    "Testing Runbooks/T1574.009 - Hijack Execution Flow- Path Interception by Unquoted Path.md",
-    "Testing Runbooks/T1574.008 - Hijack Execution Flow- Path Interception by Search Order Hijacking.md",
-    "Testing Runbooks/T1574.006 - Hijack Execution Flow- LD_PRELOAD.md",
-    "Testing Runbooks/T1574.002 - Hijack Execution Flow- DLL Side-Loading.md",
-    "Testing Runbooks/T1574.001 - Hijack Execution Flow- DLL Search Order Hijacking.md",
-    "Testing Runbooks/T1573 - Encrypted Channel.md",
+    "Use Cases/T1021.008 - Remote Services- Direct Cloud VM Connections.md",
+    "Use Cases/T1027.003 - Obfuscated Files or Information- Steganography.md",
+    "Testing Runbooks/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
+    "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
+    "Detection Rules/proc_creation_win_rpcping_credential_capture.md",
+    "Detection Rules/posh_ps_potential_invoke_mimikatz.md",
+    "Detection Rules.md",
+    "Use Cases/T1027.001 - Obfuscated Files or Information- Binary Padding.md",
+    "Use Cases/T1041 - Exfiltration Over C2 Channel.md",
+    "Use Cases/T1037.003 - Boot or Logon Initialization Scripts- Network Logon Script.md",
+    "Use Cases/T1027.011 - Obfuscated Files or Information- Fileless Storage.md",
+    "Testing Runbooks/T1018 - Remote System Discovery.md",
     "Testing Runbooks",
     "Use Cases",
     "atomics/T1218.010/bin/AllTheThingsx86.dll",
