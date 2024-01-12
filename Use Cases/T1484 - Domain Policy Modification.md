@@ -5,7 +5,7 @@ version: 2.0
 tactics: Defense Evasion, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1484
 platforms: Azure AD, Windows
-tags: [T1484, techniques, Defense_Evasion,Privilege_Escalation]
+tags: [T1484, techniques, Defense_Evasion,_Privilege_Escalation]
 ---
 
 ## Domain Policy Modification
@@ -50,5 +50,5 @@ FROM "Detection Rules" AND #T1484
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1484
+FROM "Testing Runbooks" AND #T1484
 ```

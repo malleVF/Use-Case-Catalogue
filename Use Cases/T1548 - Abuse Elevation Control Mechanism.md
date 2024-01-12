@@ -5,7 +5,7 @@ version: 1.2
 tactics: Defense Evasion, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1548
 platforms: Azure AD, Google Workspace, IaaS, Linux, Office 365, Windows, macOS
-tags: [T1548, techniques, Defense_Evasion,Privilege_Escalation]
+tags: [T1548, techniques, Defense_Evasion,_Privilege_Escalation]
 ---
 
 ## Abuse Elevation Control Mechanism
@@ -54,5 +54,5 @@ FROM "Detection Rules" AND #T1548
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1548
+FROM "Testing Runbooks" AND #T1548
 ```

@@ -5,7 +5,7 @@ version: 2.3
 tactics: Credential Access, Defense Evasion, Persistence
 url: https://attack.mitre.org/techniques/T1556
 platforms: Azure AD, Google Workspace, IaaS, Linux, Network, Office 365, SaaS, Windows, macOS
-tags: [T1556, techniques, Credential_Access,Defense_Evasion,Persistence]
+tags: [T1556, techniques, Credential_Access,_Defense_Evasion,_Persistence]
 ---
 
 ## Modify Authentication Process
@@ -67,5 +67,5 @@ FROM "Detection Rules" AND #T1556
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1556
+FROM "Testing Runbooks" AND #T1556
 ```

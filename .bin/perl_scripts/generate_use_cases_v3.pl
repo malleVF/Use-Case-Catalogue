@@ -91,7 +91,7 @@ print $md_fh <<EOF2;
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #$ID
+FROM "Testing Runbooks" AND #$ID
 ```
 EOF2
 

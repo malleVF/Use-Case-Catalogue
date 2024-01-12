@@ -62,5 +62,5 @@ FROM "Detection Rules" AND #T1558
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1558
+FROM "Testing Runbooks" AND #T1558
 ```

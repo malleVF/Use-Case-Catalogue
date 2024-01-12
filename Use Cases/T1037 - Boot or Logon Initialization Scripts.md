@@ -5,7 +5,7 @@ version: 2.2
 tactics: Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1037
 platforms: Linux, Windows, macOS
-tags: [T1037, techniques, Persistence,Privilege_Escalation]
+tags: [T1037, techniques, Persistence,_Privilege_Escalation]
 ---
 
 ## Boot or Logon Initialization Scripts
@@ -50,5 +50,5 @@ FROM "Detection Rules" AND #T1037
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1037
+FROM "Testing Runbooks" AND #T1037
 ```

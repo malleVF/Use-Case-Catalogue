@@ -5,7 +5,7 @@ version: 1.3
 tactics: Defense Evasion, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1055
 platforms: Linux, Windows, macOS
-tags: [T1055, techniques, Defense_Evasion,Privilege_Escalation]
+tags: [T1055, techniques, Defense_Evasion,_Privilege_Escalation]
 ---
 
 ## Process Injection
@@ -59,5 +59,5 @@ FROM "Detection Rules" AND #T1055
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1055
+FROM "Testing Runbooks" AND #T1055
 ```

@@ -5,7 +5,7 @@ version: 1.2
 tactics: Defense Evasion, Execution
 url: https://attack.mitre.org/techniques/T1610
 platforms: Containers
-tags: [T1610, techniques, Defense_Evasion,Execution]
+tags: [T1610, techniques, Defense_Evasion,_Execution]
 ---
 
 ## Deploy Container
@@ -47,5 +47,5 @@ FROM "Detection Rules" AND #T1610
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1610
+FROM "Testing Runbooks" AND #T1610
 ```

@@ -5,7 +5,7 @@ version: 1.4
 tactics: Defense Evasion, Persistence
 url: https://attack.mitre.org/techniques/T1197
 platforms: Windows
-tags: [T1197, techniques, Defense_Evasion,Persistence]
+tags: [T1197, techniques, Defense_Evasion,_Persistence]
 ---
 
 ## BITS Jobs
@@ -54,5 +54,5 @@ FROM "Detection Rules" AND #T1197
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1197
+FROM "Testing Runbooks" AND #T1197
 ```

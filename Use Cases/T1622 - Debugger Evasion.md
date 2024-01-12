@@ -5,7 +5,7 @@ version: 1.0
 tactics: Defense Evasion, Discovery
 url: https://attack.mitre.org/techniques/T1622
 platforms: Linux, Windows, macOS
-tags: [T1622, techniques, Defense_Evasion,Discovery]
+tags: [T1622, techniques, Defense_Evasion,_Discovery]
 ---
 
 ## Debugger Evasion
@@ -52,5 +52,5 @@ FROM "Detection Rules" AND #T1622
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1622
+FROM "Testing Runbooks" AND #T1622
 ```

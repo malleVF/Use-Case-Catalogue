@@ -5,7 +5,7 @@ version: 1.2
 tactics: Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1546
 platforms: IaaS, Linux, Office 365, SaaS, Windows, macOS
-tags: [T1546, techniques, Persistence,Privilege_Escalation]
+tags: [T1546, techniques, Persistence,_Privilege_Escalation]
 ---
 
 ## Event Triggered Execution
@@ -61,5 +61,5 @@ FROM "Detection Rules" AND #T1546
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1546
+FROM "Testing Runbooks" AND #T1546
 ```

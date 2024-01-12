@@ -5,7 +5,7 @@ version: 1.3
 tactics: Defense Evasion, Discovery
 url: https://attack.mitre.org/techniques/T1497
 platforms: Linux, Windows, macOS
-tags: [T1497, techniques, Defense_Evasion,Discovery]
+tags: [T1497, techniques, Defense_Evasion,_Discovery]
 ---
 
 ## Virtualization_Sandbox Evasion
@@ -47,5 +47,5 @@ FROM "Detection Rules" AND #T1497
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1497
+FROM "Testing Runbooks" AND #T1497
 ```

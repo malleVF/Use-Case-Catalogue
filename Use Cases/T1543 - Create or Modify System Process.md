@@ -5,7 +5,7 @@ version: 1.1
 tactics: Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1543
 platforms: Linux, Windows, macOS
-tags: [T1543, techniques, Persistence,Privilege_Escalation]
+tags: [T1543, techniques, Persistence,_Privilege_Escalation]
 ---
 
 ## Create or Modify System Process
@@ -58,5 +58,5 @@ FROM "Detection Rules" AND #T1543
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1543
+FROM "Testing Runbooks" AND #T1543
 ```

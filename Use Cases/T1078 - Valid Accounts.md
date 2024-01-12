@@ -5,7 +5,7 @@ version: 2.6
 tactics: Defense Evasion, Initial Access, Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1078
 platforms: Azure AD, Containers, Google Workspace, IaaS, Linux, Network, Office 365, SaaS, Windows, macOS
-tags: [T1078, techniques, Defense_Evasion,Initial_Access,Persistence,Privilege_Escalation]
+tags: [T1078, techniques, Defense_Evasion,_Initial_Access,_Persistence,_Privilege_Escalation]
 ---
 
 ## Valid Accounts
@@ -49,5 +49,5 @@ FROM "Detection Rules" AND #T1078
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1078
+FROM "Testing Runbooks" AND #T1078
 ```

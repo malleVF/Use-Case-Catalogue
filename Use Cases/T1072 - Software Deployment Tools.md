@@ -5,7 +5,7 @@ version: 2.2
 tactics: Execution, Lateral Movement
 url: https://attack.mitre.org/techniques/T1072
 platforms: Linux, Network, Windows, macOS
-tags: [T1072, techniques, Execution,Lateral_Movement]
+tags: [T1072, techniques, Execution,_Lateral_Movement]
 ---
 
 ## Software Deployment Tools
@@ -52,5 +52,5 @@ FROM "Detection Rules" AND #T1072
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1072
+FROM "Testing Runbooks" AND #T1072
 ```

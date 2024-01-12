@@ -5,7 +5,7 @@ version: 1.2
 tactics: Defense Evasion, Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1574
 platforms: Linux, Windows, macOS
-tags: [T1574, techniques, Defense_Evasion,Persistence,Privilege_Escalation]
+tags: [T1574, techniques, Defense_Evasion,_Persistence,_Privilege_Escalation]
 ---
 
 ## Hijack Execution Flow
@@ -59,5 +59,5 @@ FROM "Detection Rules" AND #T1574
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1574
+FROM "Testing Runbooks" AND #T1574
 ```

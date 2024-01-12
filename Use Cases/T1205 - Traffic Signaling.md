@@ -5,7 +5,7 @@ version: 2.4
 tactics: Command and Control, Defense Evasion, Persistence
 url: https://attack.mitre.org/techniques/T1205
 platforms: Linux, Network, Windows, macOS
-tags: [T1205, techniques, Command_and_Control,Defense_Evasion,Persistence]
+tags: [T1205, techniques, Command_and_Control,_Defense_Evasion,_Persistence]
 ---
 
 ## Traffic Signaling
@@ -54,5 +54,5 @@ FROM "Detection Rules" AND #T1205
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1205
+FROM "Testing Runbooks" AND #T1205
 ```

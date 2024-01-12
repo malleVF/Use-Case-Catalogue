@@ -5,7 +5,7 @@ version: 1.2
 tactics: Defense Evasion, Lateral Movement
 url: https://attack.mitre.org/techniques/T1550
 platforms: Containers, Google Workspace, IaaS, Office 365, SaaS, Windows
-tags: [T1550, techniques, Defense_Evasion,Lateral_Movement]
+tags: [T1550, techniques, Defense_Evasion,_Lateral_Movement]
 ---
 
 ## Use Alternate Authentication Material
@@ -50,5 +50,5 @@ FROM "Detection Rules" AND #T1550
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1550
+FROM "Testing Runbooks" AND #T1550
 ```

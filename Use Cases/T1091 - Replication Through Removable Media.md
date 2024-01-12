@@ -5,7 +5,7 @@ version: 1.2
 tactics: Initial Access, Lateral Movement
 url: https://attack.mitre.org/techniques/T1091
 platforms: Windows
-tags: [T1091, techniques, Initial_Access,Lateral_Movement]
+tags: [T1091, techniques, Initial_Access,_Lateral_Movement]
 ---
 
 ## Replication Through Removable Media
@@ -46,5 +46,5 @@ FROM "Detection Rules" AND #T1091
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1091
+FROM "Testing Runbooks" AND #T1091
 ```

@@ -5,7 +5,7 @@ version: 2.4
 tactics: Initial Access, Persistence
 url: https://attack.mitre.org/techniques/T1133
 platforms: Containers, Linux, Windows, macOS
-tags: [T1133, techniques, Initial_Access,Persistence]
+tags: [T1133, techniques, Initial_Access,_Persistence]
 ---
 
 ## External Remote Services
@@ -51,5 +51,5 @@ FROM "Detection Rules" AND #T1133
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1133
+FROM "Testing Runbooks" AND #T1133
 ```

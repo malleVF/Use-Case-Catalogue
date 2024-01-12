@@ -5,7 +5,7 @@ version: 1.5
 tactics: Credential Access, Discovery
 url: https://attack.mitre.org/techniques/T1040
 platforms: IaaS, Linux, Network, Windows, macOS
-tags: [T1040, techniques, Credential_Access,Discovery]
+tags: [T1040, techniques, Credential_Access,_Discovery]
 ---
 
 ## Network Sniffing
@@ -52,5 +52,5 @@ FROM "Detection Rules" AND #T1040
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1040
+FROM "Testing Runbooks" AND #T1040
 ```

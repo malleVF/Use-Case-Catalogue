@@ -5,7 +5,7 @@ version: 1.2
 tactics: Collection, Credential Access
 url: https://attack.mitre.org/techniques/T1056
 platforms: Linux, Network, Windows, macOS
-tags: [T1056, techniques, Collection,Credential_Access]
+tags: [T1056, techniques, Collection,_Credential_Access]
 ---
 
 ## Input Capture
@@ -46,5 +46,5 @@ FROM "Detection Rules" AND #T1056
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1056
+FROM "Testing Runbooks" AND #T1056
 ```

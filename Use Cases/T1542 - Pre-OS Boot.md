@@ -5,7 +5,7 @@ version: 1.1
 tactics: Defense Evasion, Persistence
 url: https://attack.mitre.org/techniques/T1542
 platforms: Linux, Network, Windows, macOS
-tags: [T1542, techniques, Defense_Evasion,Persistence]
+tags: [T1542, techniques, Defense_Evasion,_Persistence]
 ---
 
 ## Pre-OS Boot
@@ -50,5 +50,5 @@ FROM "Detection Rules" AND #T1542
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1542
+FROM "Testing Runbooks" AND #T1542
 ```

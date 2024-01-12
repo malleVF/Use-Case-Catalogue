@@ -5,7 +5,7 @@ version: 2.3
 tactics: Collection, Credential Access
 url: https://attack.mitre.org/techniques/T1557
 platforms: Linux, Network, Windows, macOS
-tags: [T1557, techniques, Collection,Credential_Access]
+tags: [T1557, techniques, Collection,_Credential_Access]
 ---
 
 ## Adversary-in-the-Middle
@@ -49,5 +49,5 @@ FROM "Detection Rules" AND #T1557
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1557
+FROM "Testing Runbooks" AND #T1557
 ```

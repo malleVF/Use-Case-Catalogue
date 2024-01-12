@@ -5,7 +5,7 @@ version: 2.2
 tactics: Execution, Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1053
 platforms: Containers, Linux, Windows, macOS
-tags: [T1053, techniques, Execution,Persistence,Privilege_Escalation]
+tags: [T1053, techniques, Execution,_Persistence,_Privilege_Escalation]
 ---
 
 ## Scheduled Task_Job
@@ -50,5 +50,5 @@ FROM "Detection Rules" AND #T1053
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1053
+FROM "Testing Runbooks" AND #T1053
 ```

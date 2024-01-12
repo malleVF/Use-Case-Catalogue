@@ -5,7 +5,7 @@ version: 2.0
 tactics: Defense Evasion, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1134
 platforms: Windows
-tags: [T1134, techniques, Defense_Evasion,Privilege_Escalation]
+tags: [T1134, techniques, Defense_Evasion,_Privilege_Escalation]
 ---
 
 ## Access Token Manipulation
@@ -58,5 +58,5 @@ FROM "Detection Rules" AND #T1134
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1134
+FROM "Testing Runbooks" AND #T1134
 ```

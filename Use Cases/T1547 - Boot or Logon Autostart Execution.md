@@ -5,7 +5,7 @@ version: 1.1
 tactics: Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1547
 platforms: Linux, Windows, macOS
-tags: [T1547, techniques, Persistence,Privilege_Escalation]
+tags: [T1547, techniques, Persistence,_Privilege_Escalation]
 ---
 
 ## Boot or Logon Autostart Execution
@@ -58,5 +58,5 @@ FROM "Detection Rules" AND #T1547
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1547
+FROM "Testing Runbooks" AND #T1547
 ```

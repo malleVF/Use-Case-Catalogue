@@ -5,7 +5,7 @@ version: 2.6
 tactics: Persistence, Privilege Escalation
 url: https://attack.mitre.org/techniques/T1098
 platforms: Azure AD, Containers, Google Workspace, IaaS, Linux, Network, Office 365, SaaS, Windows, macOS
-tags: [T1098, techniques, Persistence,Privilege_Escalation]
+tags: [T1098, techniques, Persistence,_Privilege_Escalation]
 ---
 
 ## Account Manipulation
@@ -52,5 +52,5 @@ FROM "Detection Rules" AND #T1098
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1098
+FROM "Testing Runbooks" AND #T1098
 ```

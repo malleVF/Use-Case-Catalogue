@@ -5,7 +5,7 @@ version: 1.0
 tactics: Command and Control, Initial Access
 url: https://attack.mitre.org/techniques/T1659
 platforms: Linux, Windows, macOS
-tags: [T1659, techniques, Command_and_Control,Initial_Access]
+tags: [T1659, techniques, Command_and_Control,_Initial_Access]
 ---
 
 ## Content Injection
@@ -50,5 +50,5 @@ FROM "Detection Rules" AND #T1659
 ```dataview
 TABLE without id
 filename AS "Name"
-FROM "atomics" AND #T1659
+FROM "Testing Runbooks" AND #T1659
 ```
