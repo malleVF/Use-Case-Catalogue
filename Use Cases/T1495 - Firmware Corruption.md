@@ -29,19 +29,14 @@ System firmware manipulation may be detected.(Citation: MITRE Trustworthy Firmwa
   - Firmware: Firmware Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1495
+```query
+tag: detection_rule
+tag: T1495
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1495
+```query
+tag: atomic_test
+tag: T1495
 ```

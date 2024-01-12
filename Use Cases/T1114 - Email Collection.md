@@ -39,19 +39,14 @@ Auto-forwarded messages generally contain specific detectable artifacts that may
   -  Network Traffic: Network Connection Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1114
+```query
+tag: detection_rule
+tag: T1114
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1114
+```query
+tag: atomic_test
+tag: T1114
 ```

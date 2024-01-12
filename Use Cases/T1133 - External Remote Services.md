@@ -37,19 +37,14 @@ When authentication is not required to access an exposed remote service, monitor
   -  Network Traffic: Network Traffic Flow
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1133
+```query
+tag: detection_rule
+tag: T1133
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1133
+```query
+tag: atomic_test
+tag: T1133
 ```

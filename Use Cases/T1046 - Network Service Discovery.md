@@ -35,19 +35,14 @@ Normal, benign system and network events from legitimate remote service scanning
   -  Network Traffic: Network Traffic Flow
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1046
+```query
+tag: detection_rule
+tag: T1046
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1046
+```query
+tag: atomic_test
+tag: T1046
 ```

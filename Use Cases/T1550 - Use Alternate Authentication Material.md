@@ -36,19 +36,14 @@ System Access Controls
   -  Web Credential: Web Credential Usage
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1550
+```query
+tag: detection_rule
+tag: T1550
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1550
+```query
+tag: atomic_test
+tag: T1550
 ```

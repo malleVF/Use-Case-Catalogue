@@ -33,19 +33,14 @@ In containerized environments, changes may be detectable by monitoring the Docke
   -  Image: Image Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1525
+```query
+tag: detection_rule
+tag: T1525
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1525
+```query
+tag: atomic_test
+tag: T1525
 ```

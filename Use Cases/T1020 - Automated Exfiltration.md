@@ -34,19 +34,14 @@ Monitor process file access patterns and network behavior. Unrecognized processe
   -  Script: Script Execution
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1020
+```query
+tag: detection_rule
+tag: T1020
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1020
+```query
+tag: atomic_test
+tag: T1020
 ```

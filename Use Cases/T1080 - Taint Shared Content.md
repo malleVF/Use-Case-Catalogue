@@ -37,19 +37,14 @@ Frequently scan shared network directories for malicious files, hidden files, .L
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1080
+```query
+tag: detection_rule
+tag: T1080
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1080
+```query
+tag: atomic_test
+tag: T1080
 ```

@@ -34,19 +34,14 @@ On Linux/macOS, device drivers (in the form of kernel modules) may be visible wi
   -  Windows Registry: Windows Registry Key Access
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1652
+```query
+tag: detection_rule
+tag: T1652
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1652
+```query
+tag: atomic_test
+tag: T1652
 ```

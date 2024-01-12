@@ -1,0 +1,322 @@
+---
+tags: [T1083, atomic_test]
+filename: "[[T1083 - File and Directory Discovery]]"
+---
+# T1083 - File and Directory Discovery
+
+## Atomic Test #1 - File and Directory Discovery (cmd.exe)
+Find or discover files on the file system.  Upon successful execution, this test will output the results of all the data discovery commands to a specified file.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 0e36303b-6762-4500-b003-127743b80ba6
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| output_file | File to output results to | string | %temp%&#92;T1083Test1.txt|
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+dir /s c:\ >> #{output_file}
+dir /s "c:\Documents and Settings" >> #{output_file}
+dir /s "c:\Program Files\" >> #{output_file}
+dir "%systemdrive%\Users\*.*" >> #{output_file}
+dir "%userprofile%\AppData\Roaming\Microsoft\Windows\Recent\*.*" >> #{output_file}
+dir "%userprofile%\Desktop\*.*" >> #{output_file}
+tree /F >> #{output_file}
+```
+
+#### Cleanup Commands:
+```cmd
+del #{output_file}
+```
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #2 - File and Directory Discovery (PowerShell)
+Find or discover files on the file system. Upon execution, file and folder information will be displayed.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 2158908e-b7ef-4c21-8a83-3ce4dd05a924
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+ls -recurse
+get-childitem -recurse
+gci -recurse
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #3 - Nix File and Directory Discovery
+Find or discover files on the file system
+
+References:
+
+http://osxdaily.com/2013/01/29/list-all-files-subdirectory-contents-recursively/
+
+https://perishablepress.com/list-files-folders-recursively-terminal/
+
+**Supported Platforms:** Linux, macOS
+
+
+**auto_generated_guid:** ffc8b249-372a-4b74-adcd-e4c0430842de
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| output_file | Output file used to store the results. | path | /tmp/T1083.txt|
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+ls -a >> #{output_file}
+if [ -d /Library/Preferences/ ]; then ls -la /Library/Preferences/ > #{output_file}; fi;
+file */* *>> #{output_file}
+cat #{output_file} 2>/dev/null
+find . -type f
+ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
+locate *
+which sh
+```
+
+#### Cleanup Commands:
+```sh
+rm #{output_file}
+```
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #4 - Nix File and Directory Discovery 2
+Find or discover files on the file system
+
+**Supported Platforms:** Linux, macOS
+
+
+**auto_generated_guid:** 13c5e1ae-605b-46c4-a79f-db28c77ff24e
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| output_file | Output file used to store the results. | path | /tmp/T1083.txt|
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+cd $HOME && find . -print | sed -e 's;[^/]*/;|__;g;s;__|; |;g' > #{output_file}
+if [ -f /etc/mtab ]; then cat /etc/mtab >> #{output_file}; fi;
+find . -type f -iname *.pdf >> #{output_file}
+cat #{output_file}
+find . -type f -name ".*"
+```
+
+#### Cleanup Commands:
+```sh
+rm #{output_file}
+```
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #5 - Simulating MAZE Directory Enumeration
+This test emulates MAZE ransomware's ability to enumerate directories using Powershell. 
+Upon successful execution, this test will output the directory enumeration results to a specified file, as well as display them in the active window. 
+See https://www.mandiant.com/resources/tactics-techniques-procedures-associated-with-maze-ransomware-incidents
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** c6c34f61-1c3e-40fb-8a58-d017d88286d8
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| File_to_output | File to output results to | string | $env:temp&#92;T1083Test5.txt|
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+$folderarray = @("Desktop", "Downloads", "Documents", "AppData/Local", "AppData/Roaming")
+Get-ChildItem -Path $env:homedrive -ErrorAction SilentlyContinue | Out-File -append #{File_to_output}
+Get-ChildItem -Path $env:programfiles -erroraction silentlycontinue | Out-File -append #{File_to_output}
+Get-ChildItem -Path "${env:ProgramFiles(x86)}" -erroraction silentlycontinue | Out-File -append #{File_to_output}
+$UsersFolder = "$env:homedrive\Users\"
+foreach ($directory in Get-ChildItem -Path $UsersFolder -ErrorAction SilentlyContinue) 
+{
+foreach ($secondarydirectory in $folderarray)
+ {Get-ChildItem -Path "$UsersFolder/$directory/$secondarydirectory" -ErrorAction SilentlyContinue | Out-File -append #{File_to_output}}
+}
+cat #{File_to_output}
+```
+
+#### Cleanup Commands:
+```powershell
+remove-item #{File_to_output} -ErrorAction SilentlyContinue
+```
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #6 - Launch DirLister Executable
+Launches the DirLister executable for a short period of time and then exits.
+
+Recently seen used by [BlackCat ransomware](https://news.sophos.com/en-us/2022/07/14/blackcat-ransomware-attacks-not-merely-a-byproduct-of-bad-luck/) to create a list of accessible directories and files.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** c5bec457-43c9-4a18-9a24-fe151d8971b7
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| dirlister_path | Path to the DirLister executable | string | PathToAtomicsFolder&#92;..&#92;ExternalPayloads&#92;DirLister.exe|
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+Start-Process "#{dirlister_path}"
+Start-Sleep -Second 4
+Stop-Process -Name "DirLister"
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: DirLister.exe must exist in the specified path #{dirlister_path}
+##### Check Prereq Commands:
+```powershell
+if (Test-Path "#{dirlister_path}") {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+$parentpath = Split-Path "#{dirlister_path}"
+New-Item -ItemType Directory -Force -Path $parentpath | Out-Null
+Invoke-WebRequest https://github.com/SanderSade/DirLister/releases/download/v2.beta4/DirLister.v2.beta4.zip -OutFile "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip"
+Expand-Archive -Path "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip" -DestinationPath "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4" -Force
+Copy-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4\*" "$parentpath" -Recurse
+Remove-Item "PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4.zip","PathToAtomicsFolder\..\ExternalPayloads\TDirLister.v2.beta4" -Recurse -ErrorAction Ignore
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #7 - ESXi - Enumerate VMDKs available on an ESXi Host
+An adversary uses the find command to enumerate vmdks on an ESXi host.
+[Reference](https://www.crowdstrike.com/blog/hypervisor-jackpotting-ecrime-actors-increase-targeting-of-esxi-servers/)
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** 4a233a40-caf7-4cf1-890a-c6331bbc72cf
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| vm_host | Specify the host name of the ESXi Server | string | atomic.local|
+| vm_user | Specify the privilege user account on ESXi Server | string | root|
+| vm_pass | Specify the privilege user password on ESXi Server | string | pass|
+| plink_file | Path to Plink | path | PathToAtomicsFolder&#92;..&#92;ExternalPayloads&#92;plink.exe|
+| cli_script | Path to script with file discovery commands | path | PathToAtomicsFolder&#92;T1083&#92;src&#92;esxi_file_discovery.txt|
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+echo "" | "#{plink_file}" "#{vm_host}" -ssh  -l "#{vm_user}" -pw "#{vm_pass}" -m "#{cli_script}"
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: Check if plink is available.
+##### Check Prereq Commands:
+```powershell
+if (Test-Path "#{plink_file}") {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+New-Item -Type Directory "PathToAtomicsFolder\..\ExternalPayloads\" -ErrorAction Ignore -Force | Out-Null
+Invoke-WebRequest "https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe" -OutFile "#{plink_file}"
+```
+
+
+
+
+<br/>

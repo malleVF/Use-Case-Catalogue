@@ -33,19 +33,14 @@ Monitor processes and command-line arguments for actions that could be taken to 
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1083
+```query
+tag: detection_rule
+tag: T1083
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1083
+```query
+tag: atomic_test
+tag: T1083
 ```

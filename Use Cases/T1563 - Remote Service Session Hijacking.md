@@ -35,19 +35,14 @@ Monitor for processes and command-line arguments associated with hijacking servi
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1563
+```query
+tag: detection_rule
+tag: T1563
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1563
+```query
+tag: atomic_test
+tag: T1563
 ```

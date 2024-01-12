@@ -29,19 +29,14 @@ Monitor for suspicious network traffic that could be indicative of adversary rec
   - Application Log: Application Log Content
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1594
+```query
+tag: detection_rule
+tag: T1594
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1594
+```query
+tag: atomic_test
+tag: T1594
 ```

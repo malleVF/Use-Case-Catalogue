@@ -32,19 +32,14 @@ Monitor network traffic for WMI connections; the use of WMI in environments that
   -  WMI: WMI Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1047
+```query
+tag: detection_rule
+tag: T1047
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1047
+```query
+tag: atomic_test
+tag: T1047
 ```

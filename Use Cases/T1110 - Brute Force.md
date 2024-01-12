@@ -31,19 +31,14 @@ Monitor authentication logs for system and application login failures of [Valid 
   -  User Account: User Account Authentication
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1110
+```query
+tag: detection_rule
+tag: T1110
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1110
+```query
+tag: atomic_test
+tag: T1110
 ```

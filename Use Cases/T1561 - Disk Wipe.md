@@ -35,19 +35,14 @@ Look for attempts to read/write to sensitive locations like the partition boot s
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1561
+```query
+tag: detection_rule
+tag: T1561
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1561
+```query
+tag: atomic_test
+tag: T1561
 ```

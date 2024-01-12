@@ -37,19 +37,14 @@ Anti-virus, Application control, Digital Certificate Validation
   -  Windows Registry: Windows Registry Key Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1218
+```query
+tag: detection_rule
+tag: T1218
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1218
+```query
+tag: atomic_test
+tag: T1218
 ```

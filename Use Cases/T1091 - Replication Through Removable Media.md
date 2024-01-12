@@ -32,19 +32,14 @@ Monitor file access on removable media. Detect processes that execute from remov
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1091
+```query
+tag: detection_rule
+tag: T1091
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1091
+```query
+tag: atomic_test
+tag: T1091
 ```

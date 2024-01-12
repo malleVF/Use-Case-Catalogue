@@ -35,19 +35,14 @@ Monitor network traffic for anomalies associated with known AiTM behavior. Consi
   -  Windows Registry: Windows Registry Key Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1557
+```query
+tag: detection_rule
+tag: T1557
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1557
+```query
+tag: atomic_test
+tag: T1557
 ```

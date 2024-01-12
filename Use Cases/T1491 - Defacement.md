@@ -33,19 +33,14 @@ Monitor internal and external websites for unplanned content changes. Monitor ap
   -  Network Traffic: Network Traffic Content
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1491
+```query
+tag: detection_rule
+tag: T1491
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1491
+```query
+tag: atomic_test
+tag: T1491
 ```

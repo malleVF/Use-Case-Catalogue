@@ -39,19 +39,14 @@ In AWS, sharing an Elastic Block Store (EBS) snapshot, either with specified use
   -  Snapshot: Snapshot Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1537
+```query
+tag: detection_rule
+tag: T1537
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1537
+```query
+tag: atomic_test
+tag: T1537
 ```

@@ -30,19 +30,14 @@ Container administration service activities and executed commands can be capture
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1609
+```query
+tag: detection_rule
+tag: T1609
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1609
+```query
+tag: atomic_test
+tag: T1609
 ```

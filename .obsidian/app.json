@@ -2,5 +2,6 @@
   "livePreview": false,
   "alwaysUpdateLinks": true,
   "showInlineTitle": false,
-  "useMarkdownLinks": true
+  "useMarkdownLinks": true,
+  "defaultViewMode": "preview"
 }

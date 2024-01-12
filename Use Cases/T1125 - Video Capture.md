@@ -34,19 +34,14 @@ Behavior that could indicate technique use include an unknown or unusual process
   -  Process: OS API Execution
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1125
+```query
+tag: detection_rule
+tag: T1125
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1125
+```query
+tag: atomic_test
+tag: T1125
 ```

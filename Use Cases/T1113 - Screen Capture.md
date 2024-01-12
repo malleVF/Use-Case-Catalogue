@@ -29,19 +29,14 @@ Monitoring for screen capture behavior will depend on the method used to obtain 
   -  Process: OS API Execution
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1113
+```query
+tag: detection_rule
+tag: T1113
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1113
+```query
+tag: atomic_test
+tag: T1113
 ```

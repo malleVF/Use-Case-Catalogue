@@ -44,19 +44,14 @@ Monitor for changes to files associated with system-level processes.
   -  Windows Registry: Windows Registry Key Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1543
+```query
+tag: detection_rule
+tag: T1543
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1543
+```query
+tag: atomic_test
+tag: T1543
 ```

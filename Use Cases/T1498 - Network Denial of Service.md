@@ -36,19 +36,14 @@ Detection of Network DoS can sometimes be achieved before the traffic volume is 
   -  Sensor Health: Host Status
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1498
+```query
+tag: detection_rule
+tag: T1498
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1498
+```query
+tag: atomic_test
+tag: T1498
 ```

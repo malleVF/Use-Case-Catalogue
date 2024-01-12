@@ -38,19 +38,14 @@ Additionally, monitor processes for applications that can be used to query the R
   -  Windows Registry: Windows Registry Key Access
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1552
+```query
+tag: detection_rule
+tag: T1552
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1552
+```query
+tag: atomic_test
+tag: T1552
 ```

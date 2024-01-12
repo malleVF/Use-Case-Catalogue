@@ -37,19 +37,14 @@ Monitor for processes that can be used to enumerate user accounts, such as <code
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1087
+```query
+tag: detection_rule
+tag: T1087
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1087
+```query
+tag: atomic_test
+tag: T1087
 ```

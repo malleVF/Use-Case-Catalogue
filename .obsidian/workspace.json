@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "9046176b953d00ae",
+        "id": "4284942fa5ff5be3",
         "type": "tabs",
         "children": [
           {
-            "id": "00ec5d7d2f689af8",
+            "id": "ff42c39df1d6200c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Use Cases/T1003.004 - OS Credential Dumping- LSA Secrets.md",
+                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
                 "mode": "preview",
                 "source": true
               }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 413.5
+    "width": 415.5
   },
   "right": {
     "id": "ce5f895ed9292e12",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Use Cases/T1003.004 - OS Credential Dumping- LSA Secrets.md",
+                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Use Cases/T1003.004 - OS Credential Dumping- LSA Secrets.md",
+                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Use Cases/T1003.004 - OS Credential Dumping- LSA Secrets.md"
+                "file": "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md"
               }
             }
           }
@@ -147,36 +147,36 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "00ec5d7d2f689af8",
+  "active": "ff42c39df1d6200c",
   "lastOpenFiles": [
-    "Use Cases/T1003.003 - OS Credential Dumping- NTDS.md",
-    "Use Cases/T1027.004 - Obfuscated Files or Information- Compile After Delivery.md",
-    "Use Cases/T1021.002 - Remote Services- SMB_Windows Admin Shares.md",
-    "Use Cases/T1016.002 - System Network Configuration Discovery- Wi-Fi Discovery.md",
-    "Use Cases/T1020 - Automated Exfiltration.md",
-    "Use Cases/T1011.001 - Exfiltration Over Other Network Medium- Exfiltration Over Bluetooth.md",
-    "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
-    "Testing Runbooks/T1558.001.md",
-    "Testing Runbooks/T1620.md",
-    "Testing Runbooks/T1003.md",
-    "Testing Runbooks/macos-index.md",
-    "Testing Runbooks/linux-matrix.md",
-    "Testing Runbooks/T1003.001.md",
-    "Testing Runbooks/azure-ad-index.md",
-    "Testing Runbooks/matrix.md",
-    "Testing Runbooks/office-365-index.md",
-    "Testing Runbooks/macos-matrix.md",
-    "Testing Runbooks/containers-index.md",
-    "Use Cases/T1005 - Data from Local System.md",
-    "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
-    "Use Cases/T1003.005 - OS Credential Dumping- Cached Domain Credentials.md",
+    "Detection Rules.md",
+    "Detection Rules/microsoft365_unusual_volume_of_file_deletion.md",
     "README.md",
-    "Use Cases/T1021.004 - Remote Services- SSH.md",
-    "Testing Runbooks/T1027.md",
-    "Use Cases/T1027 - Obfuscated Files or Information.md",
-    "Use Cases/T1021.001 - Remote Services- Remote Desktop Protocol.md",
-    "Use Cases",
+    "Use Cases/T1098 - Account Manipulation.md",
+    "Use Cases/T1071 - Application Layer Protocol.md",
+    "Use Cases/T1070 - Indicator Removal.md",
+    "Use Cases/T1069.003 - Permission Groups Discovery- Cloud Groups.md",
+    "Use Cases/T1055.013 - Process Injection- Process Doppelg„nging.md",
+    "Use Cases/T1055.008 - Process Injection- Ptrace System Calls.md",
+    "Use Cases/T1037 - Boot or Logon Initialization Scripts.md",
+    "Use Cases/T1021.007 - Remote Services- Cloud Services.md",
+    "Use Cases/T1021 - Remote Services.md",
+    "Use Cases/T1012 - Query Registry.md",
+    "Detection Rules/aws_sts_getsessiontoken_misuse.md",
+    "Use Cases/T1027.002 - Obfuscated Files or Information- Software Packing.md",
+    "Use Cases/T1070.005 - Indicator Removal- Network Share Connection Removal.md",
+    "Use Cases/T1070.004 - Indicator Removal- File Deletion.md",
+    "Testing Runbooks/T1037.004 - Boot or Logon Initialization Scripts- Rc.common.md",
+    "Testing Runbooks/T1574.012 - Hijack Execution Flow- COR_PROFILER.md",
+    "Testing Runbooks/T1574.011 - Hijack Execution Flow- Services Registry Permissions Weakness.md",
+    "Testing Runbooks/T1574.009 - Hijack Execution Flow- Path Interception by Unquoted Path.md",
+    "Testing Runbooks/T1574.008 - Hijack Execution Flow- Path Interception by Search Order Hijacking.md",
+    "Testing Runbooks/T1574.006 - Hijack Execution Flow- LD_PRELOAD.md",
+    "Testing Runbooks/T1574.002 - Hijack Execution Flow- DLL Side-Loading.md",
+    "Testing Runbooks/T1574.001 - Hijack Execution Flow- DLL Search Order Hijacking.md",
+    "Testing Runbooks/T1573 - Encrypted Channel.md",
     "Testing Runbooks",
+    "Use Cases",
     "atomics/T1218.010/bin/AllTheThingsx86.dll",
     "atomics/T1218.010/bin/AllTheThingsx64.dll",
     "LICENSE",

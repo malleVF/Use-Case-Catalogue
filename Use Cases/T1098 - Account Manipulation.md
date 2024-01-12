@@ -38,19 +38,14 @@ Monitor for unusual permissions changes that may indicate excessively broad perm
   -  User Account: User Account Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1098
+```query
+tag: detection_rule
+tag: T1098
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1098
+```query
+tag: atomic_test
+tag: T1098
 ```

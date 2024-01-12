@@ -38,19 +38,14 @@ In cloud-based environments, monitor for the creation of new traffic mirrors or 
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1040
+```query
+tag: detection_rule
+tag: T1040
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1040
+```query
+tag: atomic_test
+tag: T1040
 ```

@@ -33,19 +33,14 @@ Use process monitoring to monitor the execution and command line parameters of b
   -  Sensor Health: Host Status
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1529
+```query
+tag: detection_rule
+tag: T1529
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1529
+```query
+tag: atomic_test
+tag: T1529
 ```

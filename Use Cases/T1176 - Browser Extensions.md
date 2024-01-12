@@ -43,19 +43,14 @@ On macOS, monitor the command line for usage of the profiles tool, such as <code
   -  Windows Registry: Windows Registry Key Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1176
+```query
+tag: detection_rule
+tag: T1176
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1176
+```query
+tag: atomic_test
+tag: T1176
 ```

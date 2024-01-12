@@ -5,27 +5,27 @@
   "showAttachments": false,
   "hideUnresolved": true,
   "showOrphans": false,
-  "collapse-color-groups": false,
+  "collapse-color-groups": true,
   "colorGroups": [
     {
       "query": "path:\"Testing Runbooks\"  ",
       "color": {
         "a": 1,
-        "rgb": 15140872
+        "rgb": 15542791
       }
     },
     {
       "query": "path:\"Use Cases\"  ",
       "color": {
         "a": 1,
-        "rgb": 1345264
+        "rgb": 15256593
       }
     },
     {
       "query": "path:\"Detection Rules\"  ",
       "color": {
         "a": 1,
-        "rgb": 16182793
+        "rgb": 564701
       }
     }
   ],
@@ -39,6 +39,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.11660891579457468,
-  "close": false
+  "scale": 0.1634837056722072,
+  "close": true
 }

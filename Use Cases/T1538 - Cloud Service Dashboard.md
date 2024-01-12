@@ -30,19 +30,14 @@ Monitor account activity logs to see actions performed and activity associated w
   -  User Account: User Account Authentication
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1538
+```query
+tag: detection_rule
+tag: T1538
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1538
+```query
+tag: atomic_test
+tag: T1538
 ```

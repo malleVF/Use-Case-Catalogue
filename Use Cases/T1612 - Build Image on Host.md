@@ -32,19 +32,14 @@ Monitor for unexpected Docker image build requests to the Docker daemon on hosts
   -  Network Traffic: Network Traffic Flow
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1612
+```query
+tag: detection_rule
+tag: T1612
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1612
+```query
+tag: atomic_test
+tag: T1612
 ```

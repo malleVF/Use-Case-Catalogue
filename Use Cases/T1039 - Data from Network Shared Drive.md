@@ -32,19 +32,14 @@ Monitor processes and command-line arguments for actions that could be taken to 
   -  Network Traffic: Network Traffic Flow
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1039
+```query
+tag: detection_rule
+tag: T1039
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1039
+```query
+tag: atomic_test
+tag: T1039
 ```

@@ -7,99 +7,85 @@ cssclasses: wide-page
 Grouped by MITRE ATT&CK tactics:
 
 >[!info]- Reconnaissance
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #Reconnaissance 
+>```query
+>tag: Reconnaissance 
+>tag: detection_rule
 >```
 
 >[!info]- Resource Development
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #Resource_Development  
->```
+>```query 
+>tag: Resource_Development
+>tag: detection_rule
+> ```
 
 >[!info]- Initial Access
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #initial_access  
+>```query
+>tag: Initial_Access
+>tag: detection_rule
 >```
 
 >[!info]- Execution
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #execution  
+>```query
+>tag: Execution
+>tag: detection_rule
 >```
 
 >[!info]- Persistence
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #persistence  
+>```query
+>tag: Persistence
+>tag: detection_rule
 >```
 
 >[!info]- Privilege Escalation
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #privilege_escalation  
+>```query
+>tag: Privilege_Escalation
+>tag: detection_rule
 >```
 
 >[!info]- Defense Evasion
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #defense_evasion  
+>```query
+>tag: Defense_Evasion
+>tag: detection_rule
 >```
 
 >[!info]- Credential Access
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #credential_access  
+>```query
+>tag: Credential_Access
+>tag: detection_rule
 >```
 
 >[!info]- Discovery
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #discovery  
+>```query
+>tag: Discovery
+>tag: detection_rule
 >```
 
 >[!info]- Lateral Movement
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #lateral_movement  
+>```query
+>tag: Lateral_Movement
+>tag: detection_rule
 >```
 
 >[!info]- Collection
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #collection  
+>```query
+>tag: Collection
+>tag: detection_rule
 >```
 
 >[!info]- Command and Control
->```dataview
->TABLE
->sstatus, level, created, last_modified
->FROM "Detection Rules" AND #command_and_control  
+>```query
+>tag: Command_and_Control
+>tag: detection_rule
 >```
 
 >[!info]- Exfiltration
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #exfiltration  
+>```query
+>tag: Exfiltration
+>tag: detection_rule
 >```
 
 >[!info]- Impact
->```dataview
->TABLE
->status, level, created, last_modified
->FROM "Detection Rules" AND #impact  
+>```query
+>tag: Impact
+>tag: detection_rule
 >```

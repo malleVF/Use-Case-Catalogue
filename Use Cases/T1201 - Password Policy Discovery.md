@@ -33,19 +33,14 @@ Monitor logs and processes for tools and command line arguments that may indicat
   -  User Account: User Account Metadata
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1201
+```query
+tag: detection_rule
+tag: T1201
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1201
+```query
+tag: atomic_test
+tag: T1201
 ```

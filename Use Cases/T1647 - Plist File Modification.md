@@ -37,19 +37,14 @@ Identify new services executed from plist modified in the previous user's sessio
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1647
+```query
+tag: detection_rule
+tag: T1647
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1647
+```query
+tag: atomic_test
+tag: T1647
 ```

@@ -1,37 +1,42 @@
 {
   "items": [
     {
+      "type": "file",
+      "ctime": 1705087208769,
+      "path": "Detection Rules.md"
+    },
+    {
       "type": "graph",
-      "ctime": 1704139373074,
+      "ctime": 1705087738943,
       "title": "Graph",
       "options": {
-        "collapse-filter": false,
+        "collapse-filter": true,
         "search": "",
         "showTags": true,
         "showAttachments": false,
         "hideUnresolved": true,
         "showOrphans": false,
-        "collapse-color-groups": false,
+        "collapse-color-groups": true,
         "colorGroups": [
           {
-            "query": "path:\"atomics\"  ",
+            "query": "path:\"Testing Runbooks\"  ",
             "color": {
               "a": 1,
-              "rgb": 15140872
+              "rgb": 15542791
             }
           },
           {
             "query": "path:\"Use Cases\"  ",
             "color": {
               "a": 1,
-              "rgb": 1345264
+              "rgb": 15256593
             }
           },
           {
             "query": "path:\"Detection Rules\"  ",
             "color": {
               "a": 1,
-              "rgb": 16182793
+              "rgb": 564701
             }
           }
         ],
@@ -45,8 +50,8 @@
         "repelStrength": 10,
         "linkStrength": 1,
         "linkDistance": 250,
-        "scale": 0.08317427835927654,
-        "close": false
+        "scale": 0.11660891579457468,
+        "close": true
       }
     }
   ]

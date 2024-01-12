@@ -33,19 +33,14 @@ Collect usage logs from cloud administrator accounts to identify unusual activit
   -  User Account: User Account Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1136
+```query
+tag: detection_rule
+tag: T1136
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1136
+```query
+tag: atomic_test
+tag: T1136
 ```

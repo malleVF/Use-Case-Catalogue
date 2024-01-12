@@ -30,19 +30,14 @@ Identify network traffic sent or received by untrusted hosts or networks that so
   -  Network Traffic: Network Traffic Content
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1602
+```query
+tag: detection_rule
+tag: T1602
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1602
+```query
+tag: atomic_test
+tag: T1602
 ```

@@ -36,19 +36,14 @@ Consider monitoring for anomalous behavior from client applications, such as aty
   -  File: File Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1554
+```query
+tag: detection_rule
+tag: T1554
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1554
+```query
+tag: atomic_test
+tag: T1554
 ```

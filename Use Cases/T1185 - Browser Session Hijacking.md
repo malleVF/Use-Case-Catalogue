@@ -33,19 +33,14 @@ This may be a difficult technique to detect because adversary traffic may be mas
   -  Process: Process Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1185
+```query
+tag: detection_rule
+tag: T1185
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1185
+```query
+tag: atomic_test
+tag: T1185
 ```

@@ -38,19 +38,14 @@ Utilization of the Windows APIs may involve processes loading/accessing system D
   -  Process: OS API Execution
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1106
+```query
+tag: detection_rule
+tag: T1106
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1106
+```query
+tag: atomic_test
+tag: T1106
 ```

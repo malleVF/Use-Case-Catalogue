@@ -36,19 +36,14 @@ Monitor logon scripts for unusual access by abnormal users or at abnormal times.
   -  Windows Registry: Windows Registry Key Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1037
+```query
+tag: detection_rule
+tag: T1037
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1037
+```query
+tag: atomic_test
+tag: T1037
 ```

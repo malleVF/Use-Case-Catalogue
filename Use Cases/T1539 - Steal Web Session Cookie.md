@@ -34,19 +34,14 @@ Monitor for attempts to access files and repositories on a local system that are
   -  Process: Process Access
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1539
+```query
+tag: detection_rule
+tag: T1539
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1539
+```query
+tag: atomic_test
+tag: T1539
 ```

@@ -36,19 +36,14 @@ Content injection is often the result of compromised upstream communication chan
   -  Process: Process Creation
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1659
+```query
+tag: detection_rule
+tag: T1659
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1659
+```query
+tag: atomic_test
+tag: T1659
 ```

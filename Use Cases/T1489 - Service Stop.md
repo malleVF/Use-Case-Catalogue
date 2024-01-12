@@ -41,19 +41,14 @@ Remote access tools with built-in features may interact directly with the Window
   -  Windows Registry: Windows Registry Key Modification
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1489
+```query
+tag: detection_rule
+tag: T1489
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1489
+```query
+tag: atomic_test
+tag: T1489
 ```

@@ -43,19 +43,14 @@ In cloud environments, the occurrence of anomalous high-volume deletion events, 
   -  Volume: Volume Deletion
 ### Detection Rule
 
-```dataview
-table without id
-file.link AS "Name",
-status AS "Status",
-level AS "Level",
-logsrc_product AS "Log Source Product"
-FROM "Detection Rules" AND #T1485
+```query
+tag: detection_rule
+tag: T1485
 ```
 
 ### Rule Testing
 
-```dataview
-TABLE without id
-filename AS "Name"
-FROM "Testing Runbooks" AND #T1485
+```query
+tag: atomic_test
+tag: T1485
 ```
