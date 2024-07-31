@@ -3,5 +3,6 @@
   "enabledCssSnippets": [
     "wide views"
   ],
-  "baseFontSize": 15
+  "baseFontSize": 15,
+  "theme": "obsidian"
 }

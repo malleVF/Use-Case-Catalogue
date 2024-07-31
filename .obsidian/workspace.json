@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
                 "mode": "preview",
                 "source": true
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:T1003_007",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": true,
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 415.5
+    "width": 314.5
   },
   "right": {
     "id": "ce5f895ed9292e12",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,16 +125,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -148,32 +148,32 @@
   },
   "active": "ff42c39df1d6200c",
   "lastOpenFiles": [
-    "Use Cases/T1027.006 - Obfuscated Files or Information- HTML Smuggling.md",
-    "Use Cases/T1021.007 - Remote Services- Cloud Services.md",
-    "Use Cases/T1021.006 - Remote Services- Windows Remote Management.md",
-    "Use Cases/T1033 - System Owner_User Discovery.md",
+    "Use Cases/T1003.006 - OS Credential Dumping- DCSync.md",
     "README.md",
-    "Use Cases/T1021.005 - Remote Services- VNC.md",
-    "Use Cases/T1027.007 - Obfuscated Files or Information- Dynamic API Resolution.md",
-    "Use Cases/T1021.004 - Remote Services- SSH.md",
-    "Use Cases/T1027.005 - Obfuscated Files or Information- Indicator Removal from Tools.md",
-    "Use Cases/T1016 - System Network Configuration Discovery.md",
-    "Use Cases/T1008 - Fallback Channels.md",
-    "Use Cases/T1003.002 - OS Credential Dumping- Security Account Manager.md",
-    "Use Cases/T1003.008 - OS Credential Dumping- _etc_passwd and _etc_shadow.md",
-    "Use Cases/T1021 - Remote Services.md",
-    "Use Cases/T1021.008 - Remote Services- Direct Cloud VM Connections.md",
-    "Use Cases/T1027.003 - Obfuscated Files or Information- Steganography.md",
-    "Testing Runbooks/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
-    "Use Cases/T1003.007 - OS Credential Dumping- Proc Filesystem.md",
-    "Detection Rules/proc_creation_win_rpcping_credential_capture.md",
-    "Detection Rules/posh_ps_potential_invoke_mimikatz.md",
+    "Use Cases/T1003.001 - OS Credential Dumping- LSASS Memory.md",
+    "Use Cases.md",
+    "Use Cases/T1014 - Rootkit.md",
+    "Detection Rules/proc_creation_lnx_triple_cross_rootkit_install.md",
+    "Testing Runbooks/T1014 - Rootkit.md",
+    "Use Cases/T1593 - Search Open Websites_Domains.md",
+    "Use Cases/T1589.001 - Gather Victim Identity Information- Credentials.md",
+    "Use Cases/T1037.001 - Boot or Logon Initialization Scripts- Logon Script (Windows).md",
+    "Use Cases/T1594 - Search Victim-Owned Websites.md",
     "Detection Rules.md",
-    "Use Cases/T1027.001 - Obfuscated Files or Information- Binary Padding.md",
-    "Use Cases/T1041 - Exfiltration Over C2 Channel.md",
-    "Use Cases/T1037.003 - Boot or Logon Initialization Scripts- Network Logon Script.md",
-    "Use Cases/T1027.011 - Obfuscated Files or Information- Fileless Storage.md",
-    "Testing Runbooks/T1018 - Remote System Discovery.md",
+    "Use Cases/T1001.003 - Data Obfuscation- Protocol Impersonation.md",
+    "Use Cases/T1027.003 - Obfuscated Files or Information- Steganography.md",
+    "Detection Rules/file_event_win_csharp_compile_artefact.md",
+    "Detection Rules/av_hacktool.md",
+    "Testing Runbooks/T1003.006 - OS Credential Dumping- DCSync.md",
+    "Detection Rules/image_load_side_load_aruba_networks_virtual_intranet_access.md",
+    "Testing Runbooks/T1003.005 - OS Credential Dumping- Cached Domain Credentials.md",
+    "Use Cases/T1003.005 - OS Credential Dumping- Cached Domain Credentials.md",
+    "Detection Rules/image_load_dll_tttracer_module_load.md",
+    "Detection Rules/file_event_win_taskmgr_lsass_dump.md",
+    "Detection Rules/image_load_dll_dbghelp_dbgcore_susp_load.md",
+    "Detection Rules/proc_creation_win_iis_appcmd_service_account_password_dumped.md",
+    "Use Cases/T1003 - OS Credential Dumping.md",
+    "Use Cases/T1036.001 - Masquerading- Invalid Code Signature.md",
     "Testing Runbooks",
     "Use Cases",
     "atomics/T1218.010/bin/AllTheThingsx86.dll",
